@@ -1,3 +1,7 @@
+import ConfigManager from "./Manager/ConfigManager";
+import UIManager from "./Manager/UIManager";
+import GameController from "./GameController";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -16,7 +20,13 @@ export default class Main extends cc.Component {
  
  
     start () {
+        UIManager.getInstance().init()
+        ConfigManager.getInstance().loadGrid(this.onConfigComplete)
+    }
 
+    onConfigComplete(){ 
+        console.log("load config complete ~~~~~~~~~~~")
+        GameController.getInstance().createTDUnitByPos(1,1)
     }
 
     // update (dt) {}

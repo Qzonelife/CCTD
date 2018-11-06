@@ -1,3 +1,7 @@
+import UnitPool from "./UnitPool";
+import TDUnit from "./TDUnit";
+import UIManager from "./Manager/UIManager";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -20,4 +24,14 @@ export default class GameController {
             this.instance = new GameController()
         return this.instance
    }
+
+   public createTDUnitByPos(posId,tdType){ 
+        UnitPool.getInstance().getTdByType(tdType,(td:TDUnit)=>{
+
+            td.setParent(UIManager.getInstance().tdLayer)
+            td.setPos(new cc.Vec2(0,0))
+            console.log("prepare to drag")
+        })
+   }
+
 }

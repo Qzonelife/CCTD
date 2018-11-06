@@ -1,4 +1,6 @@
 import DraggableUnit from "./Base/DraggableUnit";
+import TDData from "./TDData";
+import UIManager from "./Manager/UIManager";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -14,5 +16,19 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class TDUnit extends DraggableUnit {
+    
+    private tdData:TDData
 
+    public setTdData(tdd:TDData){
+        this.tdData = tdd
+    }
+
+   
+    start(){
+        super.start()
+        this.enableDragEvent(this.spriteNode.node)
+    }
+    onDragging(evt:cc.Event.EventMouse){
+        this.node.position = UIManager.getInstance().adjustPosByScreen(evt.getLocation())
+    }
 }

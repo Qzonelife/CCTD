@@ -1,0 +1,9 @@
+{
+	"tds":[
+		{"id":1,"level":1,"attack":10,"atkSp":1,"spriteRes":"res...","bulType":1},
+
+		{"id":2,"level":2,"attack":10,"atkSp":1,"spriteRes":"res...","bulType":1},
+
+		{"id":3,"level":3,"attack":10,"atkSp":1,"spriteRes":"res...","bulType":1}
+	]
+}

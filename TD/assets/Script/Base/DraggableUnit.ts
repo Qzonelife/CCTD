@@ -20,9 +20,6 @@ export default class DraggableUnit extends BaseUnit implements IDraggable {
     isCanDrag = true
 
     @property(cc.Node)
-    orgParent:cc.Node = null //原本的层级
-
-    @property(cc.Node)
     dragLayer:cc.Node = null//拖拽时候物体所在的层级
 
     dragObserver:cc.Node

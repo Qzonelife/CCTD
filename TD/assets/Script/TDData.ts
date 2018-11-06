@@ -11,27 +11,23 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BaseUnit extends cc.Component {
+export default class TDData {
 
-    
-    @property(cc.Node)
-    parentNode:cc.Node //对象父节点
+    id:number
+    level:number
+    attack:number
+    attackSpeed:number
+    spriteRes:string
+    bulletType:number
 
-    protected spriteNode:cc.Sprite //动画对象
+    constructor(jsonCfg){
 
-    public setParent(parent:cc.Node){
-        this.parentNode = parent
-        this.node.parent = this.parentNode
+        this.id = jsonCfg["id"]
+        this.level = jsonCfg["level"]
+        this.attack = jsonCfg["attack"]
+        this.attackSpeed = jsonCfg["atkSp"]
+        this.spriteRes = jsonCfg["spriteRes"]
+        this.bulletType = jsonCfg["bulType"]
     }
-    public setPos(pos:cc.Vec2){
-        this.node.position = pos
-    }
-    public setActive(isActive:boolean){
-        this.node.active = isActive
-    }
-    start(){
-        this.spriteNode = this.node.getChildByName("body").getComponent(cc.Sprite)
-        
-    }
-    // update (dt) {}
+      
 }
