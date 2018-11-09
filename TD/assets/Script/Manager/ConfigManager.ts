@@ -39,7 +39,7 @@ export default class ConfigManager {
                 pos.forEach(element => {
                     let vct:cc.Vec2 = this.getPosByStr(element["pos"])
                     vct = new cc.Vec2(vct.x*sizeScale,vct.y*sizeScale)
-                    this.gridPos.push()
+                    this.gridPos.push(vct) 
                 });
                 this.loadTd(callBack)
            

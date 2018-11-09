@@ -25,6 +25,7 @@ export default class BaseUnit extends cc.Component {
     }
     public setPos(pos:cc.Vec2){
         this.node.position = pos
+ 
     }
     public setActive(isActive:boolean){
         this.node.active = isActive

@@ -26,7 +26,7 @@ export default class Main extends cc.Component {
 
     onConfigComplete(){ 
         console.log("load config complete ~~~~~~~~~~~")
-        GameController.getInstance().createTDUnitByPos(1,1)
+        GameController.getInstance().startGameLogic()
     }
 
     // update (dt) {}

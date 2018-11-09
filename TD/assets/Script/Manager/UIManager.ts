@@ -27,9 +27,9 @@ export default class UIManager {
     public init(){
         this.canvas = cc.find("Canvas").getComponent(cc.Canvas)
         this.tdLayer = cc.find("Canvas/sceneLayer/tdLayer")
-        this.tdLayer = cc.find("Canvas/sceneLayer/dragLayer")
-        this.tdLayer = cc.find("Canvas/windowLayer")
-        this.tdLayer = cc.find("Canvas/topLayer")
+        this.dragLayer = cc.find("Canvas/sceneLayer/dragLayer")
+        this.windowLayer = cc.find("Canvas/windowLayer")
+        this.topLayer = cc.find("Canvas/topLayer")
         
     }
 

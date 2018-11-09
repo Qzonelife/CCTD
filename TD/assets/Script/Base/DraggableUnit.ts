@@ -42,6 +42,9 @@ export default class DraggableUnit extends BaseUnit implements IDraggable {
     onStartDrag(){
         if(!this.isCanDrag)
             return
+        if(this.dragLayer!=null){
+            this.node.parent = this.dragLayer
+        }
         this.isDragging = true
         this.dragObserver.on(cc.Node.EventType.MOUSE_MOVE,this.onDragging,this)
         this.dragObserver.on(cc.Node.EventType.MOUSE_UP,this.onMouseUp,this)
@@ -51,6 +54,7 @@ export default class DraggableUnit extends BaseUnit implements IDraggable {
 
     onEndDrag(){
         this.isDragging = false
+        this.node.parent = this.parentNode
         this.dragObserver.off(cc.Node.EventType.MOUSE_MOVE,this.onDragging,this)
         this.dragObserver.off(cc.Node.EventType.MOUSE_UP,this.onMouseUp,this)
         this.dragObserver.off(cc.Node.EventType.MOUSE_LEAVE,this.onMouseOut,this)
