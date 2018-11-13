@@ -26,6 +26,7 @@ export default class Main extends cc.Component {
 
     onConfigComplete(){ 
         console.log("load config complete ~~~~~~~~~~~")
+        GameController.getInstance().init()
         GameController.getInstance().startGameLogic()
     }
 

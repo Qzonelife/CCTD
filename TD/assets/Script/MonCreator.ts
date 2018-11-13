@@ -1,3 +1,8 @@
+import MonUnit from "./MonUnit";
+import UnitPool from "./UnitPool";
+import UIManager from "./Manager/UIManager";
+import ConfigManager from "./Manager/ConfigManager";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -11,25 +16,19 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class TDData {
+export default class MonCreator {
 
-    id:number
-    name:string
-    level:number
-    attack:number
-    attackSpeed:number
-    spriteRes:string
-    bulletType:number
+     constructor(){
 
-    constructor(jsonCfg){
-
-        this.id = jsonCfg["id"]
-        this.name = jsonCfg["name"]
-        this.level = jsonCfg["level"]
-        this.attack = jsonCfg["attack"]
-        this.attackSpeed = jsonCfg["atkSp"]
-        this.spriteRes = jsonCfg["spriteRes"]
-        this.bulletType = jsonCfg["bulType"]
-    }
-      
+     }
+     public monLs:MonUnit[] = new Array<MonUnit>()
+     
+     
+     //通过id创建一个mon对象
+     public creatorMonster(id = 1){
+        UnitPool.getInstance().getMonByType(id,(unit:MonUnit)=>{
+            unit.setParent(UIManager.getInstance().monLayer)
+            unit.setToRoadPoint(1)
+        })
+     }
 }

@@ -30,9 +30,19 @@ export default class BaseUnit extends cc.Component {
     public setActive(isActive:boolean){
         this.node.active = isActive
     }
-    start(){
+    public init(){
         this.spriteNode = this.node.getChildByName("body").getComponent(cc.Sprite)
+    }
+    start(){
+        //this.spriteNode = this.node.getChildByName("body").getComponent(cc.Sprite)
         
+    }
+
+    public distanceTo(unit:BaseUnit):number{
+        return this.disToPos(unit.node.position)
+    }
+    public disToPos(pos:cc.Vec2):number{
+        return cc.pDistance(this.node.position,pos)
     }
     // update (dt) {}
 }

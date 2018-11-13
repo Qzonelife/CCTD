@@ -1,6 +1,12 @@
 {
 	"column":"4",
 	"sizeScale":"100",
+	"roadPoints":[
+		{"id":1,"pos":"-256,-568","faceTo":"4"},
+		{"id":2,"pos":"232,-568","faceTo":"1"},
+		{"id":3,"pos":"232,214","faceTo":"3"},
+		{"id":4,"pos":"-283,214","faceTo":"0"}
+	],
 	"pos":[
 		{
 			"id":1,

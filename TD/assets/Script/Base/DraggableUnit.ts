@@ -37,7 +37,7 @@ export default class DraggableUnit extends BaseUnit implements IDraggable {
         this.onEndDrag()
     }
     onDragging(evt:cc.Event.EventMouse){
-        console.log("dragging")
+       // console.log("dragging")
     }
     onStartDrag(){
         if(!this.isCanDrag)

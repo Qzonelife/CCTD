@@ -1,0 +1,8 @@
+{
+	"mons":[
+		{"id":1,"name":"测试怪物1","level":1,"blood":10,"scale":1,"moveSpeed":1,"spriteRes":"texture/Unit/u5"},
+		{"id":2,"name":"测试怪物2","level":1,"blood":10,"scale":1,"moveSpeed":1,"spriteRes":"texture/Unit/u6"},
+		{"id":3,"name":"测试怪物3","level":1,"blood":10,"scale":1,"moveSpeed":1,"spriteRes":"texture/Unit/u7"}
+
+	]
+}

@@ -24,12 +24,16 @@ export default class UIManager {
     dragLayer:cc.Node
     windowLayer:cc.Node
     topLayer:cc.Node
+    monLayer:cc.Node
+    platformLayer:cc.Node
     public init(){
         this.canvas = cc.find("Canvas").getComponent(cc.Canvas)
         this.tdLayer = cc.find("Canvas/sceneLayer/tdLayer")
         this.dragLayer = cc.find("Canvas/sceneLayer/dragLayer")
         this.windowLayer = cc.find("Canvas/windowLayer")
         this.topLayer = cc.find("Canvas/topLayer")
+        this.platformLayer = cc.find("Canvas/sceneLayer/platformLayer")
+        this.monLayer = cc.find("Canvas/sceneLayer/monLayer")
         
     }
 
