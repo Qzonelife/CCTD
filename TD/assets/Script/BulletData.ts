@@ -11,27 +11,19 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class TDData {
+export default class BulletData  {
 
     id:number
     name:string
-    level:number
-    attack:number
-    atkRang:number
-    attackSpeed:number
-    spriteRes:string
-    bulletType:number
-
+    moveSpeed:number
+    spriteRes:string 
+    buffer:number
     constructor(jsonCfg){
 
         this.id = jsonCfg["id"]
         this.name = jsonCfg["name"]
-        this.level = jsonCfg["level"]
-        this.attack = jsonCfg["attack"]
-        this.attackSpeed = jsonCfg["atkSp"]
-        this.atkRang = jsonCfg["atkRang"]
+        this.moveSpeed = jsonCfg["moveSpeed"]
         this.spriteRes = jsonCfg["spriteRes"]
-        this.bulletType = jsonCfg["bulType"]
+        this.buffer = jsonCfg["buffer"]
     }
-      
 }

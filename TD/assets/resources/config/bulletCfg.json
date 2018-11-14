@@ -1,0 +1,8 @@
+{
+	"bullets":[
+		{"id":1,"name":"测试子弹1","moveSpeed":1,"spriteRes":"texture/Unit/u5","buffer":1},
+		{"id":2,"name":"测试子弹2","moveSpeed":1,"spriteRes":"texture/Unit/u6","buffer":2},
+		{"id":3,"name":"测试子弹3","moveSpeed":1,"spriteRes":"texture/Unit/u7","buffer":3}
+
+	]
+}

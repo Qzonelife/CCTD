@@ -1,3 +1,8 @@
+import UnitPool from "./UnitPool";
+import UIManager from "./Manager/UIManager";
+import BulletUnit from "./BulletUnit"
+import TDUnit from "./TDUnit";
+import MonUnit from "./MonUnit";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -11,27 +16,19 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class TDData {
+export default class BulletManager  {
+    constructor(){
 
-    id:number
-    name:string
-    level:number
-    attack:number
-    atkRang:number
-    attackSpeed:number
-    spriteRes:string
-    bulletType:number
-
-    constructor(jsonCfg){
-
-        this.id = jsonCfg["id"]
-        this.name = jsonCfg["name"]
-        this.level = jsonCfg["level"]
-        this.attack = jsonCfg["attack"]
-        this.attackSpeed = jsonCfg["atkSp"]
-        this.atkRang = jsonCfg["atkRang"]
-        this.spriteRes = jsonCfg["spriteRes"]
-        this.bulletType = jsonCfg["bulType"]
     }
-      
+    public bulList:BulletUnit[] = new Array<BulletUnit>()
+    
+    
+    //通过id创建一个bullet对象
+    public createBullet(creator:TDUnit,target:MonUnit){
+        let id = creator.tdData.bulletType
+       UnitPool.getInstance().getMonByType(id,(unit:BulletUnit)=>{
+           unit.setParent(UIManager.getInstance().bulLayer)
+         
+       })
+    }
 }

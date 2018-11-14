@@ -1,5 +1,6 @@
 import TDData from "../TDData";
 import MonData from "../MonData";
+import BulletData from "../BulletData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -25,10 +26,10 @@ export default class ConfigManager {
     }
 
     public gridPos:cc.Vec2[] = new Array<cc.Vec2>()
-    public roadPoints:[number,cc.Vec2,string][] = new Array<[number,cc.Vec2,string]>(); //路点标记的元组
-    public tdDatas:{[key:number]:TDData} = {};
-    public monDatas:{[key:number]:MonData} = {};
-    
+    public roadPoints:[number,cc.Vec2,string][] = new Array<[number,cc.Vec2,string]>() //路点标记的元组
+    public tdDatas:{[key:number]:TDData} = {}
+    public monDatas:{[key:number]:MonData} = {}
+    public bulDatas:{[key:number]:BulletData} = {}
 
     public getRoadPoint(index:number):[number,cc.Vec2,string]{
  
@@ -117,11 +118,29 @@ export default class ConfigManager {
                      let mon = new MonData(element)
                      this.monDatas[mon.id] = mon
                  });
-                 callback()
+                 this.loadBullet(callback)
             
             }
          }) 
     }
+    public loadBullet(callBack){
+        cc.loader.loadRes("config/bulletCfg",(err,res)=>{
+            if(err){
+                 console.log("加载配置失败！！，子弹配置")
+                 console.log(err.message)
+            }else{ 
+                 let bul = res["bullets"]
+                 bul.forEach(element => { 
+                     let bul = new BulletData(element)
+                     this.bulDatas[bul.id] = bul
+                     let mon = new MonData(element)
+                 });
+                 callBack()
+            
+            }
+         }) 
+    }
+
     public getPosByStr(str:string){
         let arr:string[] = str.split(',');
         return new cc.Vec2(Number(arr[0]),Number(arr[1]));

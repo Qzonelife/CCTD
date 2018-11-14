@@ -2,6 +2,7 @@ import MonUnit from "./MonUnit";
 import UnitPool from "./UnitPool";
 import UIManager from "./Manager/UIManager";
 import ConfigManager from "./Manager/ConfigManager";
+import TDUnit from "./TDUnit";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -29,6 +30,25 @@ export default class MonCreator {
         UnitPool.getInstance().getMonByType(id,(unit:MonUnit)=>{
             unit.setParent(UIManager.getInstance().monLayer)
             unit.setToRoadPoint(1)
+            this.monLs.push(unit)
         })
      }
+     public assignTarget(tdUnit:TDUnit){
+         if(tdUnit.isTargetAlive()){ //攻击对象是否存在,如果有就直接返回
+            return
+         }
+         for(var i=0;i<this.monLs.length;i++){
+             //分配到目标就break
+             if(!this.monLs[i].isAlive){
+                 continue
+             }
+             if(tdUnit.checkSetTarget(this.monLs[i])){
+                 console.log("target set successful")
+                break
+            }
+         }
+ 
+
+     }
+
 }

@@ -26,6 +26,7 @@ export default class UIManager {
     topLayer:cc.Node
     monLayer:cc.Node
     platformLayer:cc.Node
+    bulLayer:cc.Node
     public init(){
         this.canvas = cc.find("Canvas").getComponent(cc.Canvas)
         this.tdLayer = cc.find("Canvas/sceneLayer/tdLayer")
@@ -34,7 +35,7 @@ export default class UIManager {
         this.topLayer = cc.find("Canvas/topLayer")
         this.platformLayer = cc.find("Canvas/sceneLayer/platformLayer")
         this.monLayer = cc.find("Canvas/sceneLayer/monLayer")
-        
+        this.bulLayer = cc.find("Canvas/sceneLayer/bulLyaer")
     }
 
     public adjustPosByScreen(pos:cc.Vec2):cc.Vec2{

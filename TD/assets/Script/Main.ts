@@ -30,5 +30,7 @@ export default class Main extends cc.Component {
         GameController.getInstance().startGameLogic()
     }
 
-    // update (dt) {}
+     update (dt) {
+         GameController.getInstance().update()
+     }
 }

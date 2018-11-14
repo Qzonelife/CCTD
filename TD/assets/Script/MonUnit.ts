@@ -24,6 +24,7 @@ export default class MonUnit extends BaseUnit {
     public curPosId:number
     public targetPos:cc.Vec2
     public bloodBar:cc.ProgressBar
+    public isAlive:boolean
     public  init(){
         super.init()
         this.bloodBar = this.node.getChildByName("blood").getComponent(cc.ProgressBar)
@@ -39,6 +40,13 @@ export default class MonUnit extends BaseUnit {
         UnitPool.getInstance().getSprite(this.monData.spriteRes,(res)=>{
             this.spriteNode.spriteFrame = res
         })
+    }
+
+    public aliveUnit(){
+        this.isAlive = true
+    }
+    public removeUnit(){
+        this.isAlive = false
     }
     public setToRoadPoint(id:number){
         let rp:[number,cc.Vec2,string] = ConfigManager.getInstance().getRoadPoint(id)

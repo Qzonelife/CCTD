@@ -4,6 +4,7 @@ import UIManager from "./Manager/UIManager";
 import ConfigManager from"./Manager/ConfigManager"
 import GameController from "./GameController";
 import UnitPool from "./UnitPool";
+import MonUnit from "./MonUnit";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -22,6 +23,30 @@ export default class TDUnit extends DraggableUnit {
     public tdData:TDData
     private orgPos:cc.Vec2
     public curPosId:number
+
+    public target:MonUnit
+
+    public isTargetAlive():boolean{
+        if(this.target == null){
+            return false
+        }
+        if(this.target.isAlive){
+            return true
+        }else{
+            this.target = null
+            return false
+        }
+    }
+    //设置攻击目标,检查是否可以攻击
+    public checkSetTarget(target:MonUnit):boolean{
+        //设置攻击目标
+        if(this.distanceTo(target) < this.tdData.atkRang){
+            this.target = target
+            return true
+        }
+        return false
+        
+    }
     public setTdData(tdd:TDData){ //设置数据，各种需要刷新下
         this.tdData = tdd
         this.updateSprite()

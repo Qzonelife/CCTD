@@ -56,8 +56,10 @@ export default class GameController {
        })
       
    }
+   public isGameLogicStart:boolean
    public startGameLogic(){
     cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    this.isGameLogicStart = true
    }
 
    public onKeyDown(){ 
@@ -67,7 +69,7 @@ export default class GameController {
     this.monCreator.creatorMonster()
    }
    public unitDict:{[key:number]:TDUnit} = {}
-
+   public activeTd:TDUnit[] = new Array<TDUnit>() //用于遍历的防御塔数组
    /**
     * createInEmptyPos ,在一个空位置创造一个
     */
@@ -102,6 +104,7 @@ export default class GameController {
             td.dragLayer = UIManager.getInstance().dragLayer
             td.setPosById(posId)
             this.unitDict[posId] = td
+            this.activeTd.push(td)  //顺便将这个对象加入列表
             let tdId = Math.floor(Math.random()*3)+1
             let tdd:TDData = ConfigManager.getInstance().getTdData(tdId)
             td.setTdData(tdd)
@@ -143,6 +146,13 @@ export default class GameController {
             let tarTd:TDUnit = this.unitDict[posId]
             if(unit.tdData.id == tarTd.tdData.id){  //形同的合体
                 this.unitDict[unit.curPosId] = null
+                //从列表中移除
+                for(var i=0;this.activeTd.length;i++){
+                    if(unit == this.activeTd[i]){
+                        this.activeTd.splice(i,1)
+                        break;
+                    }
+                }
                 unit.remove()
                 
                 tarTd.doLevelUpAction()
@@ -169,6 +179,17 @@ export default class GameController {
        }else{
            console.log("换位失败")
        }
+   }
+
+
+   public update(){
+        if(!this.isGameLogicStart){
+            return
+        } 
+        for(var i=0;i<this.activeTd.length;i++){
+            this.monCreator.assignTarget(this.activeTd[i]) //给每个td分配一个攻击对象
+        }
+
    }
 
 

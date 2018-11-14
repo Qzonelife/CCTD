@@ -1,3 +1,7 @@
+import BaseUnit from "./Base/BaseUnit";
+import BulletData from "./BulletData";
+import UnitPool from "./UnitPool";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -11,27 +15,19 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class TDData {
+export default class NewClass extends BaseUnit{
 
-    id:number
-    name:string
-    level:number
-    attack:number
-    atkRang:number
-    attackSpeed:number
-    spriteRes:string
-    bulletType:number
-
-    constructor(jsonCfg){
-
-        this.id = jsonCfg["id"]
-        this.name = jsonCfg["name"]
-        this.level = jsonCfg["level"]
-        this.attack = jsonCfg["attack"]
-        this.attackSpeed = jsonCfg["atkSp"]
-        this.atkRang = jsonCfg["atkRang"]
-        this.spriteRes = jsonCfg["spriteRes"]
-        this.bulletType = jsonCfg["bulType"]
+    public bulletData:BulletData
+ 
+    public setTdData(bld:BulletData){ //设置数据，各种需要刷新下
+        this.bulletData = bld
+        this.updateSprite()
     }
-      
+    public updateSprite(){  
+        UnitPool.getInstance().getSprite(this.bulletData.spriteRes,(res)=>{
+            this.spriteNode.spriteFrame = res
+        })
+    }
+   
+ 
 }
