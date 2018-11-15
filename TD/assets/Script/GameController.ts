@@ -29,7 +29,7 @@ export default class GameController {
    }
    private monCreator:MonCreator
    public init(){
-       this.initPlatform()
+       //this.initPlatform()
        this.monCreator = new MonCreator()
    }
 

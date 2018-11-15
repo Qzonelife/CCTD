@@ -67,7 +67,7 @@ export default class MonUnit extends BaseUnit {
     }
 
     public moveToTarget(){
-        let act = cc.moveTo(5,this.targetPos)
+        let act = cc.moveTo(1,this.targetPos)
         let seq = cc.sequence(act,cc.callFunc(()=>{
             this.curPosId = this.curPosId+1
             this.startMove()
