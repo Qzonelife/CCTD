@@ -50,6 +50,29 @@ export default class TDUnit extends DraggableUnit {
     public setTdData(tdd:TDData){ //设置数据，各种需要刷新下
         this.tdData = tdd
         this.updateSprite()
+      
+        this.drawRang()
+       
+
+    }
+    public drawRang(){
+
+        let node = this.node.getChildByName("graphics")
+        if(node == null){
+            node = new cc.Node()
+            node.name = "graphics"
+            node.parent = this.node
+            node.setSiblingIndex(0)
+            node.position = cc.p(0,0)
+        }
+        
+        let grap:cc.Graphics = node.addComponent(cc.Graphics)
+        grap.circle(0,0,this.tdData.atkRang)
+        let fillColor:cc.Color = cc.Color.RED
+        fillColor.setA(20)
+        grap.fillColor = fillColor
+        grap.stroke()
+        grap.fill()
     }
     public updateSprite(){  
         UnitPool.getInstance().getSprite(this.tdData.spriteRes,(res)=>{
