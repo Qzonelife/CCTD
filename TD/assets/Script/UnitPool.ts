@@ -3,6 +3,8 @@ import TDData from "./TDData";
 import ConfigManager from "./Manager/ConfigManager";
 import MonUnit from "./MonUnit";
 import MonData from "./MonData";
+import BulletUnit from "./BulletUnit";
+import BulletData from "./BulletData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -31,6 +33,11 @@ export default class UnitPool{
 
     private tdPool:TDUnit[] = new Array<TDUnit>()
     private monPool:MonUnit[] = new Array<MonUnit>()
+    private bulPool:BulletUnit[] = new Array<BulletUnit>()
+
+    private bulPf = "prefabs/bulUnit"
+    private monPf = "prefabs/monUnit"
+    private tdPf = "prefabs/tdUnit"
     //通过类型获得td
     public getTdByType(tdType,callBack){
  
@@ -41,20 +48,20 @@ export default class UnitPool{
             tUnit.setActive(true)
             callBack(tUnit)
         }else{
-            if(this.pfLs["prefabs/tdUnit"]){
-                let node:cc.Node = cc.instantiate(this.pfLs["prefabs/tdUnit"])
+            if(this.pfLs[this.tdPf]){
+                let node:cc.Node = cc.instantiate(this.pfLs[this.tdPf])
                 let tUnit:TDUnit = node.getComponent(TDUnit)
                 tUnit.init()
                 let tdd:TDData = ConfigManager.getInstance().getTdData(tdType)
-                console.log(tdType+"lksdjflksdf")
+ 
                 tUnit.setTdData(tdd)
                 tUnit.setActive(true)
                 callBack(tUnit)
 
             }else{
-                cc.loader.loadRes("prefabs/tdUnit",cc.Prefab,(err,res)=>{
-                    this.pfLs["prefabs/tdUnit"] = res
-                    let node:cc.Node = cc.instantiate(this.pfLs["prefabs/tdUnit"])
+                cc.loader.loadRes(this.tdPf,cc.Prefab,(err,res)=>{
+                    this.pfLs[this.tdPf] = res
+                    let node:cc.Node = cc.instantiate(this.pfLs[this.tdPf])
                     let tUnit:TDUnit = node.getComponent(TDUnit)
                     tUnit.init()
                     let tdd:TDData = ConfigManager.getInstance().getTdData(tdType)
@@ -76,8 +83,8 @@ export default class UnitPool{
             monUnit.setActive(true)
             callBack(monUnit)
         }else{
-            if(this.pfLs["prefabs/monUnit"]){
-                let node:cc.Node = cc.instantiate(this.pfLs["prefabs/monUnit"])
+            if(this.pfLs[this.monPf]){
+                let node:cc.Node = cc.instantiate(this.pfLs[this.monPf])
                 let monUnit:MonUnit = node.getComponent(MonUnit)
                 monUnit.init()
                 let mdd:MonData = ConfigManager.getInstance().getMonData(monType)
@@ -86,9 +93,9 @@ export default class UnitPool{
                 callBack(monUnit)
 
             }else{
-                cc.loader.loadRes("prefabs/monUnit",cc.Prefab,(err,res)=>{
-                    this.pfLs["prefabs/monUnit"] = res
-                    let node:cc.Node = cc.instantiate(this.pfLs["prefabs/monUnit"])
+                cc.loader.loadRes(this.monPf,cc.Prefab,(err,res)=>{
+                    this.pfLs[this.monPf] = res
+                    let node:cc.Node = cc.instantiate(this.pfLs[this.monPf])
                     let monUnit:MonUnit = node.getComponent(MonUnit)
                     monUnit.init()
                     let mdd:MonData = ConfigManager.getInstance().getMonData(monType)
@@ -101,6 +108,36 @@ export default class UnitPool{
         }
     }
 
+    public getBulByType(bulType,callBack){
+        if(this.bulPool.length>0){
+            let bulUnit:BulletUnit = this.bulPool.pop()
+            let bld:BulletData = ConfigManager.getInstance().getBulData(bulType)
+            bulUnit.setUnitData(bld)
+            bulUnit.setActive(true)
+            callBack(bulUnit)
+        }else{
+            if(this.pfLs[this.bulPf]){
+                let node:cc.Node = cc.instantiate(this.pfLs[this.bulPf])
+                let bulUnit:BulletUnit = node.getComponent(BulletUnit)
+                bulUnit.init()
+                let bld:BulletData = ConfigManager.getInstance().getBulData(bulType)
+                bulUnit.setUnitData(bld)
+                bulUnit.setActive(true)
+                callBack(bulUnit)
+            }else{
+                cc.loader.loadRes(this.bulPf,cc.Prefab,(err,res)=>{
+                    this.pfLs[this.bulPf] = res
+                    let node:cc.Node = cc.instantiate(this.pfLs[this.bulPf])
+                    let bulUnit:BulletUnit = node.getComponent(BulletUnit)
+                    bulUnit.init()
+                    let bld:BulletData = ConfigManager.getInstance().getBulData(bulType)
+                    bulUnit.setUnitData(bld)
+                    bulUnit.setActive(true)
+                    callBack(bulUnit)
+                })
+            }
+        }
+    }
 
     public destroyTd(unit:TDUnit){
         this.tdPool.push(unit)

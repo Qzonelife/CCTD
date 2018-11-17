@@ -30,6 +30,7 @@ export default class MonCreator {
         UnitPool.getInstance().getMonByType(id,(unit:MonUnit)=>{
             unit.setParent(UIManager.getInstance().monLayer)
             unit.setToRoadPoint(1)
+            unit.aliveUnit()
             this.monLs.push(unit)
         })
      }
@@ -43,6 +44,7 @@ export default class MonCreator {
                  continue
              }
              if(tdUnit.checkSetTarget(this.monLs[i])){
+                
                  console.log("target set successful")
                 break
             }

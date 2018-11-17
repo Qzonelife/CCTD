@@ -5,6 +5,7 @@ import ConfigManager from"./Manager/ConfigManager"
 import GameController from "./GameController";
 import UnitPool from "./UnitPool";
 import MonUnit from "./MonUnit";
+import BulletManager from "./BulletManager";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -50,11 +51,26 @@ export default class TDUnit extends DraggableUnit {
     public setTdData(tdd:TDData){ //设置数据，各种需要刷新下
         this.tdData = tdd
         this.updateSprite()
-      
         this.drawRang()
-       
-
+        
     }
+
+    public attack(){
+        console.log("do attack1")
+        if(this.isTargetAlive()){
+
+            BulletManager.createBullet(this,this.target)
+
+        }else{
+
+            //没有攻击目标就请求一个进行攻击
+        }
+        //执行攻击操作
+        this.scheduleOnce(function(){
+            this.attack()
+        },this.tdData.attackSpeed)
+    }   
+
     public drawRang(){
 
         let node = this.node.getChildByName("graphics")
@@ -90,6 +106,7 @@ export default class TDUnit extends DraggableUnit {
     start(){
         super.start()
         this.enableDragEvent(this.spriteNode.node)
+        this.attack()
     }
     onDragging(evt:cc.Event.EventMouse){
         this.node.position = UIManager.getInstance().adjustPosByScreen(evt.getLocation())

@@ -1,6 +1,7 @@
 import BaseUnit from "./Base/BaseUnit";
 import BulletData from "./BulletData";
 import UnitPool from "./UnitPool";
+import MonUnit from "./MonUnit";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -15,11 +16,11 @@ import UnitPool from "./UnitPool";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends BaseUnit{
+export default class BulletUnit extends BaseUnit{
 
     public bulletData:BulletData
- 
-    public setTdData(bld:BulletData){ //设置数据，各种需要刷新下
+    private target:MonUnit
+    public setUnitData(bld:BulletData){ //设置数据，各种需要刷新下
         this.bulletData = bld
         this.updateSprite()
     }
@@ -28,6 +29,25 @@ export default class NewClass extends BaseUnit{
             this.spriteNode.spriteFrame = res
         })
     }
-   
+
+    public setTarget(mon:MonUnit){
+        this.target = mon
+    }
+    
+    public update(){ 
+        if(this.target ==null || !this.target.isAlive){
+ 
+            return
+        }
+        this.moveToPos(this.target.node.position)
+    }
+
+    public moveToPos(targetPos:cc.Vec2){
+        let delt:cc.Vec2 = cc.pSub(targetPos,this.node.position)
+        delt.normalize()
+        let newPos = cc.pAdd(this.node.position,delt.mul(0.1))
+        console.log(this.bulletData.moveSpeed)
+        this.setPos(newPos)
+    }
  
 }

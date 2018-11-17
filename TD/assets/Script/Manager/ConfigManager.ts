@@ -53,7 +53,9 @@ export default class ConfigManager {
         }
         return null
     }
-
+    public getBulData(bulId:number){
+        return this.bulDatas[bulId]
+    }
     public getMonData(monId:number){
         return this.monDatas[monId]
     }

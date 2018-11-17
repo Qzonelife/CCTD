@@ -2,8 +2,8 @@
 	"tds":[
 		{"id":1,"name":"测试防御塔1","level":1,"attack":10,"atkRang":300,"atkSp":1,"spriteRes":"texture/Unit/u1","bulType":1},
 
-		{"id":2,"name":"测试防御塔2","level":2,"attack":410,"atkRang":300,"atkSp":1,"spriteRes":"texture/Unit/u2","bulType":1},
+		{"id":2,"name":"测试防御塔2","level":2,"attack":410,"atkRang":300,"atkSp":0.5,"spriteRes":"texture/Unit/u2","bulType":1},
 
-		{"id":3,"name":"测试防御塔3","level":3,"attack":10,"atkRang":300,"atkSp":1,"spriteRes":"texture/Unit/u3","bulType":1}
+		{"id":3,"name":"测试防御塔3","level":3,"attack":10,"atkRang":300,"atkSp":0.1,"spriteRes":"texture/Unit/u3","bulType":1}
 	]
 }

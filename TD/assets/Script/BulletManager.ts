@@ -20,15 +20,16 @@ export default class BulletManager  {
     constructor(){
 
     }
-    public bulList:BulletUnit[] = new Array<BulletUnit>()
+    public static bulList:BulletUnit[] = new Array<BulletUnit>()
     
     
     //通过id创建一个bullet对象
-    public createBullet(creator:TDUnit,target:MonUnit){
+    public static createBullet(creator:TDUnit,target:MonUnit){
         let id = creator.tdData.bulletType
-       UnitPool.getInstance().getMonByType(id,(unit:BulletUnit)=>{
+       UnitPool.getInstance().getBulByType(id,(unit:BulletUnit)=>{
            unit.setParent(UIManager.getInstance().bulLayer)
-         
+           unit.setPos(creator.node.position)
+           unit.setTarget(target)
        })
     }
 }
