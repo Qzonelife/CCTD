@@ -6,6 +6,8 @@ import GameController from "./GameController";
 import UnitPool from "./UnitPool";
 import MonUnit from "./MonUnit";
 import BulletManager from "./BulletManager";
+import BufferData from "./BufferData";
+import BufferBase from "./BufferBase";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -26,7 +28,7 @@ export default class TDUnit extends DraggableUnit {
     public curPosId:number
 
     public target:MonUnit
-
+    private buffer:BufferBase = new BufferBase()//buffer效果
     public isTargetAlive():boolean{
         if(this.target == null){
             return false
@@ -51,25 +53,36 @@ export default class TDUnit extends DraggableUnit {
     public setTdData(tdd:TDData){ //设置数据，各种需要刷新下
         this.tdData = tdd
         this.updateSprite()
-        this.drawRang()
+        //this.drawRang()
         
     }
 
     public attack(){
-        console.log("do attack1")
-        if(this.isTargetAlive()){
-
-            BulletManager.createBullet(this,this.target)
-
-        }else{
-
-            //没有攻击目标就请求一个进行攻击
+     
+        if(!this.isDragging && this.isCanDrag){
+            if(this.isTargetAlive()){
+                if(this.distanceTo(this.target)<this.tdData.atkRang){
+                    BulletManager.createBullet(this,this.target)
+                }else{ //请求一个进行攻击
+                    this.target = null
+                }
+               
+    
+            }else{
+                this.target = null
+    
+                //没有攻击目标就请求一个进行攻击
+            }
         }
         //执行攻击操作
         this.scheduleOnce(function(){
             this.attack()
-        },this.tdData.attackSpeed)
+        },this.getCurAttackSpeed())
     }   
+
+    public getCurAttackSpeed(){
+        return this.tdData.attackSpeed
+    }
 
     public drawRang(){
 
@@ -84,11 +97,11 @@ export default class TDUnit extends DraggableUnit {
         
         let grap:cc.Graphics = node.addComponent(cc.Graphics)
         grap.circle(0,0,this.tdData.atkRang)
-        let fillColor:cc.Color = cc.Color.RED
-        fillColor.setA(20)
-        grap.fillColor = fillColor
-        grap.stroke()
-        grap.fill()
+         let fillColor:cc.Color = cc.Color.RED
+         fillColor.setA(0)
+         grap.fillColor = fillColor
+         grap.stroke()
+         grap.fill()
     }
     public updateSprite(){  
         UnitPool.getInstance().getSprite(this.tdData.spriteRes,(res)=>{
@@ -108,9 +121,12 @@ export default class TDUnit extends DraggableUnit {
         this.enableDragEvent(this.spriteNode.node)
         this.attack()
     }
-    onDragging(evt:cc.Event.EventMouse){
+    onDragging(evt:cc.Event.EventTouch){
         this.node.position = UIManager.getInstance().adjustPosByScreen(evt.getLocation())
     }
+
+ 
+
     //拖拽结束，需要判断
     endDragCallBack(){
 
@@ -160,14 +176,26 @@ export default class TDUnit extends DraggableUnit {
        
 
     }
+    //buffer触发的事件
+    public bufEvent(buf:BufferData){
+        if(buf.bufferType == 3){ //伤害造成的buf
+
+        }
+    }
+
+    public addBuff(buf:BufferData){
+        this.buffer.addBuff(buf)
+    }
     public reset(){
         this.isCanDrag = true
         this.isDragging = false
         
     }
     public remove(){
+        this.buffer.clearBuff()
         this.reset()
         this.setActive(false)
         UnitPool.getInstance().destroyTd(this)
     }
+   
 }

@@ -1,6 +1,7 @@
 import TDData from "../TDData";
 import MonData from "../MonData";
 import BulletData from "../BulletData";
+import BufferData from "../BufferData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -30,6 +31,16 @@ export default class ConfigManager {
     public tdDatas:{[key:number]:TDData} = {}
     public monDatas:{[key:number]:MonData} = {}
     public bulDatas:{[key:number]:BulletData} = {}
+
+    public bufferDict:{[key:number]:BufferData} = {} //buffer列表，配置的buff可以通过 bufferid_level获得对应等级的buffer
+
+    //通过buffer_id或者buffer获得一个bufferdata数据,默认获得1级别buff
+    public getBufferData(id:string){
+        if(id.indexOf("_")==-1){
+            id = id+"_1"
+        }
+        return this.bufferDict[id]
+    }
 
     public getRoadPoint(index:number):[number,cc.Vec2,string]{
  
@@ -125,22 +136,43 @@ export default class ConfigManager {
             }
          }) 
     }
+    //读取子弹配置
     public loadBullet(callBack){
         cc.loader.loadRes("config/bulletCfg",(err,res)=>{
             if(err){
                  console.log("加载配置失败！！，子弹配置")
                  console.log(err.message)
             }else{ 
-                 let bul = res["bullets"]
-                 bul.forEach(element => { 
+                 let bulRes = res["bullets"]
+                 bulRes.forEach(element => { 
                      let bul = new BulletData(element)
-                     this.bulDatas[bul.id] = bul
-                     let mon = new MonData(element)
+                     this.bulDatas[bul.id] = bul 
                  });
-                 callBack()
+                 this.loadBuffer(callBack)
             
             }
          }) 
+    }
+
+    public loadBuffer(callback){
+        cc.loader.loadRes("config/bufferCfg",(err,res)=>{
+            if(err){
+                console.log("加载配置失败！！，buffer配置")
+                console.log(err.message)
+            }else{
+                let buf = res["buffs"]
+                buf.forEach(element => {
+                    let levelsDetail = element["levels"]
+                    levelsDetail.forEach(detail => {
+                        let bfd = new BufferData(detail,element)
+                        this.bufferDict[bfd.bufferDetailId] = bfd
+                    });
+                   
+                });
+                callback()
+            }
+
+        })
     }
 
     public getPosByStr(str:string){

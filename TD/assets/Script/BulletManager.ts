@@ -30,6 +30,20 @@ export default class BulletManager  {
            unit.setParent(UIManager.getInstance().bulLayer)
            unit.setPos(creator.node.position)
            unit.setTarget(target)
+           unit.setOwnerTdData(creator.tdData)
+           this.bulList.push(unit)
        })
+    }
+
+    public static hitTarget(bul:BulletUnit,tar:MonUnit){
+        if(tar==null){
+            
+        }else{
+            tar.sufferDamage(bul.ownerTDData.attack)
+        }
+        this.bulList.splice(this.bulList.indexOf(bul),1)
+        bul.remove()
+        
+
     }
 }

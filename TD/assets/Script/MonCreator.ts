@@ -38,9 +38,11 @@ export default class MonCreator {
          if(tdUnit.isTargetAlive()){ //攻击对象是否存在,如果有就直接返回
             return
          }
+         let deathLs:MonUnit[] = new Array<MonUnit>()
          for(var i=0;i<this.monLs.length;i++){
              //分配到目标就break
-             if(!this.monLs[i].isAlive){
+             if(!this.monLs[i].isAlive){ //如果怪物池中的怪物死亡就移除
+                 deathLs.push(this.monLs[i])
                  continue
              }
              if(tdUnit.checkSetTarget(this.monLs[i])){
@@ -48,6 +50,9 @@ export default class MonCreator {
                  console.log("target set successful")
                 break
             }
+         }
+         for(var i=0;i<deathLs.length;i++){
+            this.monLs.splice(this.monLs.indexOf(deathLs[i]),1)
          }
  
 

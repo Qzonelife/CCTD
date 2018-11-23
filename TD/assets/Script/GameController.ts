@@ -4,6 +4,8 @@ import UIManager from "./Manager/UIManager";
 import ConfigManager from "./Manager/ConfigManager";
 import TDData from "./TDData";
 import MonCreator from "./MonCreator";
+import MonUnit from "./MonUnit";
+import BufferManager from "./BufferManager";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -60,13 +62,16 @@ export default class GameController {
    public startGameLogic(){
     cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     this.isGameLogicStart = true
+   // setInterval(this.onKeyDown.bind(this),2000)
    }
 
    public onKeyDown(){ 
+       console.log("start test buff")
+       BufferManager.addBuff(1)
     //   let createId = Math.floor(Math.random()*16)
     //   this.createTDUnitByPos(createId,1)
-    this.createInEmptyPos()
-    this.monCreator.creatorMonster()
+    // this.createInEmptyPos()
+    // this.monCreator.creatorMonster()
    }
    public unitDict:{[key:number]:TDUnit} = {}
    public activeTd:TDUnit[] = new Array<TDUnit>() //用于遍历的防御塔数组
@@ -190,6 +195,15 @@ export default class GameController {
             this.monCreator.assignTarget(this.activeTd[i]) //给每个td分配一个攻击对象
         }
 
+   }
+
+//怪物被打死
+   public monDie(monUnit:MonUnit){
+
+   }
+   //怪物逃跑了
+   public monEscape(monUnit:MonUnit){
+    
    }
 
 

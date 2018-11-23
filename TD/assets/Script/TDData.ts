@@ -23,7 +23,6 @@ export default class TDData {
     bulletType:number
 
     constructor(jsonCfg){
-
         this.id = jsonCfg["id"]
         this.name = jsonCfg["name"]
         this.level = jsonCfg["level"]
@@ -33,5 +32,6 @@ export default class TDData {
         this.spriteRes = jsonCfg["spriteRes"]
         this.bulletType = jsonCfg["bulType"]
     }
+ 
       
 }

@@ -142,6 +142,12 @@ export default class UnitPool{
     public destroyTd(unit:TDUnit){
         this.tdPool.push(unit)
     }
+    public destroyMon(unit:MonUnit){
+        this.monPool.push(unit)
+    }
+    public destroyBullet(unit:BulletUnit){
+        this.bulPool.push(unit)
+    }
 
     public getSprite(sprite,callBack){
         if(this.spriteLs[sprite] != null){

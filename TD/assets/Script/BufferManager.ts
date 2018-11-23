@@ -1,4 +1,7 @@
-import TDData from "./TDData";
+import TDUnit from "./TDUnit";
+import BufferData from "./BufferData";
+import ConfigManager from "./Manager/ConfigManager";
+import BufferBase from "./BufferBase";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -13,20 +16,10 @@ import TDData from "./TDData";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BulletData  {
-
-    id:number
-    name:string
-    moveSpeed:number
-    spriteRes:string 
-    buffer:number
-    constructor(jsonCfg){
-
-        this.id = jsonCfg["id"]
-        this.name = jsonCfg["name"]
-        this.moveSpeed = jsonCfg["moveSpeed"]
-        this.spriteRes = jsonCfg["spriteRes"]
-        this.buffer = jsonCfg["buffer"]
-    }
-
+export default class BufferManager  {
+    
+     public static addBuff(id,level = 1){
+        let bd:BufferData  = ConfigManager.getInstance().getBufferData(1+"_"+level)
+        
+     }
 }

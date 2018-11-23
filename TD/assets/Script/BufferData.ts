@@ -13,20 +13,32 @@ import TDData from "./TDData";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BulletData  {
+export default class BufferData  {
 
     id:number
-    name:string
-    moveSpeed:number
-    spriteRes:string 
-    buffer:number
-    constructor(jsonCfg){
+    name:string 
+    bufferLevel:number
+    bufferType:number
+    bufferDetail:[number,number] //buffer的数据细节，等级，持续时间，参数
+    constructor(detail,jsonCfg){
 
         this.id = jsonCfg["id"]
         this.name = jsonCfg["name"]
-        this.moveSpeed = jsonCfg["moveSpeed"]
-        this.spriteRes = jsonCfg["spriteRes"]
-        this.buffer = jsonCfg["buffer"]
+        this.bufferType = jsonCfg["bufferType"]
+        this.bufferLevel = detail["level"]
+        this.bufferDetail = [detail["duration"],detail["param"]];
+        
+    }
+    get duration():number{
+        return this.bufferDetail[0]
+    }
+    get param():number{
+        return this.bufferDetail[1]
+    }
+
+    get bufferDetailId():string{
+        return this.id+"_"+this.bufferLevel
     }
 
 }
+
