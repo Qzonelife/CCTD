@@ -39,6 +39,9 @@ export default class UIManager {
     }
 
     public adjustPosByScreen(pos:cc.Vec2):cc.Vec2{
-        return new cc.Vec2(pos.x-this.canvas.designResolution.width/2,pos.y - this.canvas.designResolution.height/2)
+         
+        let ox = cc.director.getWinSize().width/2
+        let oy = cc.director.getWinSize().height/2
+        return new cc.Vec2(pos.x-ox,pos.y - oy)
     }
 }

@@ -1,9 +1,3 @@
-import TDUnit from "./TDUnit";
-import BufferData from "./BufferData";
-import ConfigManager from "./Manager/ConfigManager";
-import BufferBase from "./BufferBase";
-import MonUnit from "./MonUnit";
-
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -17,15 +11,12 @@ import MonUnit from "./MonUnit";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BufferManager  {
-    
-     public static addBuffToMon(monUnit:MonUnit,id,level = 1){
-        let bd:BufferData  = ConfigManager.getInstance().getBufferData(id+"_"+level)
-        if(bd!=null&&monUnit.isAlive){
-            monUnit.addBuff(bd)
-        }
-     }
-     public static addBuffToTd(tdUnit:TDUnit,id,level = 1){
+export default class RoleData {
 
-     }
+    private static roleGold  //角色金币 
+    private static roleExp //角色经验
+    private static roleGem //角色宝石
+    
+    private static roleCurMaxLevelTd //角色当前等级最高级的防御塔
+    // update (dt) {}
 }

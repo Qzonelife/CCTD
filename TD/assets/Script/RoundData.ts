@@ -1,9 +1,3 @@
-import TDUnit from "./TDUnit";
-import BufferData from "./BufferData";
-import ConfigManager from "./Manager/ConfigManager";
-import BufferBase from "./BufferBase";
-import MonUnit from "./MonUnit";
-
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -17,15 +11,21 @@ import MonUnit from "./MonUnit";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BufferManager  {
-    
-     public static addBuffToMon(monUnit:MonUnit,id,level = 1){
-        let bd:BufferData  = ConfigManager.getInstance().getBufferData(id+"_"+level)
-        if(bd!=null&&monUnit.isAlive){
-            monUnit.addBuff(bd)
-        }
-     }
-     public static addBuffToTd(tdUnit:TDUnit,id,level = 1){
+export default class RoundData  {
 
-     }
+    id:number 
+    //波次列表，每一波里面有其中的怪物列表
+    waveLs:Array<string[]>
+    
+    constructor(jsonCfg){
+
+        this.id = jsonCfg["roundId"]
+        let waveNode = jsonCfg["wave"]
+        this.waveLs = new Array<string[]>()
+        waveNode.forEach(element => {
+            let monsStr:string = element["mons"] //拿到当前波的列表
+            let mons:string[] = monsStr.split(',')
+            this.waveLs.push(mons)
+        });
+    }
 }

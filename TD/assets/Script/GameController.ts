@@ -33,44 +33,46 @@ export default class GameController {
    public init(){
        //this.initPlatform()
        this.monCreator = new MonCreator()
-   }
+ 
+    }
 
-   //初始化平台
-   public initPlatform(){
-       let cNodes:cc.Node[] = new Array<cc.Node>()
-       let cfg:cc.Vec2[] = ConfigManager.getInstance().gridPos
-       cfg.forEach(element => {
-           let node:cc.Node = new cc.Node
-           cNodes.push(node)
-           node.parent = UIManager.getInstance().platformLayer
-           node.setPosition(element)
+//    //初始化平台
+//    public initPlatform(){
+//        let cNodes:cc.Node[] = new Array<cc.Node>()
+//        let cfg:cc.Vec2[] = ConfigManager.getInstance().gridPos
+//        cfg.forEach(element => {
+//            let node:cc.Node = new cc.Node
+//            cNodes.push(node)
+//            node.parent = UIManager.getInstance().platformLayer
+//            node.setPosition(element)
           
-       });
-       cc.loader.loadRes("texture/Map/platform",cc.SpriteFrame,(err,res:cc.SpriteFrame)=>{
-            cNodes.forEach(element => {
+//        });
+//        cc.loader.loadRes("texture/Map/platform",cc.SpriteFrame,(err,res:cc.SpriteFrame)=>{
+//             cNodes.forEach(element => {
              
-                let sp:cc.Sprite = element.addComponent(cc.Sprite)
-                sp.spriteFrame = res
+//                 let sp:cc.Sprite = element.addComponent(cc.Sprite)
+//                 sp.spriteFrame = res
                 
-                element.setAnchorPoint(new cc.Vec2(0.5,0.8))
-                element.setContentSize(cc.size(100,100))
-            });
-       })
+//                 element.setAnchorPoint(new cc.Vec2(0.5,0.8))
+//                 element.setContentSize(cc.size(100,100))
+//             });
+//        })
       
-   }
+//    }
    public isGameLogicStart:boolean
    public startGameLogic(){
     cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     this.isGameLogicStart = true
+    this.monCreator.setRound(ConfigManager.getInstance().getRoundById(1),false)
+    this.monCreator.startWave()
    // setInterval(this.onKeyDown.bind(this),2000)
    }
 
-   public onKeyDown(){ 
-       console.log("start test buff")
-       BufferManager.addBuff(1)
+   public onKeyDown(){  
+    // BufferManager.addBuff(1)
     //   let createId = Math.floor(Math.random()*16)
     //   this.createTDUnitByPos(createId,1)
-    // this.createInEmptyPos()
+     this.createInEmptyPos()
     // this.monCreator.creatorMonster()
    }
    public unitDict:{[key:number]:TDUnit} = {}
@@ -110,9 +112,10 @@ export default class GameController {
             td.setPosById(posId)
             this.unitDict[posId] = td
             this.activeTd.push(td)  //顺便将这个对象加入列表
-            let tdId = Math.floor(Math.random()*3)+1
-            let tdd:TDData = ConfigManager.getInstance().getTdData(tdId)
-            td.setTdData(tdd)
+            // let tdId = Math.floor(Math.random()*3)+1
+            // let tdd:TDData = ConfigManager.getInstance().getTdData(tdId)
+            // td.setTdData(tdd)
+            
         })
         // UnitPool.getInstance().getTdByType(tdType,(td:TDUnit)=>{
 
@@ -150,16 +153,7 @@ export default class GameController {
         if(this.unitDict[posId]!=null){
             let tarTd:TDUnit = this.unitDict[posId]
             if(unit.tdData.id == tarTd.tdData.id){  //形同的合体
-                this.unitDict[unit.curPosId] = null
-                //从列表中移除
-                for(var i=0;this.activeTd.length;i++){
-                    if(unit == this.activeTd[i]){
-                        this.activeTd.splice(i,1)
-                        break;
-                    }
-                }
-                unit.remove()
-                
+                this.removeTd(unit)
                 tarTd.doLevelUpAction()
             }else{ //不同的换位
                 //先改位置映射 
@@ -172,7 +166,47 @@ export default class GameController {
             this.unitDict[posId] = unit
         }
    }
+   public removeTd(unit:TDUnit){
+        this.unitDict[unit.curPosId] = null
+        //从列表中移除
+        for(var i=0;this.activeTd.length;i++){
+            if(unit == this.activeTd[i]){
+                this.activeTd.splice(i,1)
+                break;
+            }
+        }
+        unit.remove()
+   }
+   //进行一键合成操作
+   public combineOneKey(){
+       let ignore:{[key:number]:boolean} = {}
+       let removeId:Array<TDUnit> = new Array<TDUnit>()
+       let levelUpId:Array<TDUnit> = new Array<TDUnit>()
+  
+        for(var i=0;i<this.activeTd.length;i++){
+            if(ignore[i]){
+                continue
+            } 
+            let ta = this.activeTd[i]
+            for(var j=i+1;j<this.activeTd.length;j++){
+                let tb = this.activeTd[j]
+                if(ta.tdData.level == tb.tdData.level){
+                    ignore[i] = true
+                    ignore[j] = true
+                    removeId.push(this.activeTd[i])
+                    levelUpId.push(this.activeTd[j])
+                    break;
+                }
+            }
+        }
+        for(var i=0;i<removeId.length;i++){
+             this.removeTd(removeId[i])
+        }
+        for(var i=0;i<levelUpId.length;i++){
+            levelUpId[i].levelUp()
+        }
 
+   }
    public exchangeUnit(unit1:TDUnit,unit2:TDUnit){
        if(unit1!=null && unit2!=null && unit1!=unit2){
             let p1:number = unit1.curPosId

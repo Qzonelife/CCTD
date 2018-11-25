@@ -26,8 +26,7 @@ export default class DraggableUnit extends BaseUnit implements IDraggable {
     //开启拖拽事件
     enableDragEvent(target:cc.Node){
         this.dragObserver = target
-        target.on(cc.Node.EventType.TOUCH_START,this.onStartDrag,this)
-
+        target.on(cc.Node.EventType.TOUCH_START,this.onStartDrag,this) 
     }
     
     onMouseOut(){

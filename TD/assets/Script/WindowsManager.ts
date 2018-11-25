@@ -1,8 +1,11 @@
+import UnitPool from "./UnitPool";
 import TDUnit from "./TDUnit";
-import BufferData from "./BufferData";
+import UIManager from "./Manager/UIManager";
 import ConfigManager from "./Manager/ConfigManager";
-import BufferBase from "./BufferBase";
+import TDData from "./TDData";
+import MonCreator from "./MonCreator";
 import MonUnit from "./MonUnit";
+import BufferManager from "./BufferManager";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -17,15 +20,17 @@ import MonUnit from "./MonUnit";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BufferManager  {
-    
-     public static addBuffToMon(monUnit:MonUnit,id,level = 1){
-        let bd:BufferData  = ConfigManager.getInstance().getBufferData(id+"_"+level)
-        if(bd!=null&&monUnit.isAlive){
-            monUnit.addBuff(bd)
-        }
-     }
-     public static addBuffToTd(tdUnit:TDUnit,id,level = 1){
+export default class WindowsManager {
 
-     }
+   private static instance:WindowsManager
+
+   static getInstance():WindowsManager{
+        if(!this.instance)
+            this.instance = new WindowsManager()
+        return this.instance
+   }
+   
+   
+
+
 }

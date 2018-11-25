@@ -1,8 +1,8 @@
 {
 	"bullets":[
-		{"id":1,"name":"测试子弹1","moveSpeed":10,"spriteRes":"texture/Unit/b1","buffer":1},
-		{"id":2,"name":"测试子弹2","moveSpeed":10,"spriteRes":"texture/Unit/b1","buffer":2},
-		{"id":3,"name":"测试子弹3","moveSpeed":10,"spriteRes":"texture/Unit/b1","buffer":3}
+		{"id":1,"name":"测试子弹1","moveSpeed":20,"spriteRes":"texture/Unit/b1","buffer":2},
+		{"id":2,"name":"测试子弹2","moveSpeed":20,"spriteRes":"texture/Unit/b1","buffer":2},
+		{"id":3,"name":"测试子弹3","moveSpeed":20,"spriteRes":"texture/Unit/b1","buffer":2}
 
 	]
 }

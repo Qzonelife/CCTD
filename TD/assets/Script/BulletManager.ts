@@ -3,6 +3,8 @@ import UIManager from "./Manager/UIManager";
 import BulletUnit from "./BulletUnit"
 import TDUnit from "./TDUnit";
 import MonUnit from "./MonUnit";
+import BufferData from "./BufferData";
+import BufferManager from "./BufferManager";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -39,6 +41,8 @@ export default class BulletManager  {
         if(tar==null){
             
         }else{
+     
+            BufferManager.addBuffToMon(tar,bul.bulletData.buffer)
             tar.sufferDamage(bul.ownerTDData.attack)
         }
         this.bulList.splice(this.bulList.indexOf(bul),1)

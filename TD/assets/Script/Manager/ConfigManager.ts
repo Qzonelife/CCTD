@@ -2,6 +2,7 @@ import TDData from "../TDData";
 import MonData from "../MonData";
 import BulletData from "../BulletData";
 import BufferData from "../BufferData";
+import RoundData from "../RoundData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -31,8 +32,8 @@ export default class ConfigManager {
     public tdDatas:{[key:number]:TDData} = {}
     public monDatas:{[key:number]:MonData} = {}
     public bulDatas:{[key:number]:BulletData} = {}
-
     public bufferDict:{[key:number]:BufferData} = {} //buffer列表，配置的buff可以通过 bufferid_level获得对应等级的buffer
+    public roundDict:{[key:number]:RoundData} = {} //出怪的回合波次列表
 
     //通过buffer_id或者buffer获得一个bufferdata数据,默认获得1级别buff
     public getBufferData(id:string){
@@ -41,7 +42,7 @@ export default class ConfigManager {
         }
         return this.bufferDict[id]
     }
-
+    //获得怪物路点
     public getRoadPoint(index:number):[number,cc.Vec2,string]{
  
         for(let i=0;i<this.roadPoints.length;i++){
@@ -51,8 +52,10 @@ export default class ConfigManager {
         }
         return null
     }
-
-
+    //获得当前回合的数据
+    public getRoundById(id){
+        return this.roundDict[id]
+    }
     public getTdData(tdId:number){
         return this.tdDatas[tdId]
     }
@@ -126,13 +129,24 @@ export default class ConfigManager {
                  console.log("加载配置失败！！，怪物配置")
                  console.log(err.message)
             }else{ 
+
+                //读取怪物的信息
                  let mons = res["mons"]
                  mons.forEach(element => { 
                      let mon = new MonData(element)
                      this.monDatas[mon.id] = mon
                  });
+
+                 //读取出怪逻辑的信息
+                 let rounds = res["rounds"]
+                 rounds.forEach(element => {
+                     let round = new RoundData(element)
+                     this.roundDict[round.id] = round
+                 });
+
+
                  this.loadBullet(callback)
-            
+                 
             }
          }) 
     }

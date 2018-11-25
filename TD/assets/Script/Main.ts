@@ -1,6 +1,7 @@
 import ConfigManager from "./Manager/ConfigManager";
 import UIManager from "./Manager/UIManager";
 import GameController from "./GameController";
+import MainSceneUI from "./UI/MainSceneUI";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -28,6 +29,7 @@ export default class Main extends cc.Component {
         console.log("load config complete ~~~~~~~~~~~")
         GameController.getInstance().init()
         GameController.getInstance().startGameLogic()
+        let uiMain = new MainSceneUI()
     }
 
      update (dt) {

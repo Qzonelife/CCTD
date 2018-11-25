@@ -32,6 +32,7 @@ export default class MonUnit extends BaseUnit {
     public curBlood //当前血量
     public  init(){
         super.init()
+        this.buffer.setBuffEventCallBack(this.bufEvent.bind(this))
         this.bloodBar = this.node.getChildByName("blood").getComponent(cc.ProgressBar)
     }
     public setBloodVisible(isVisible:boolean){
@@ -67,8 +68,7 @@ export default class MonUnit extends BaseUnit {
             console.log("err here,设置到了最后一个点") //移除
         }
         this.setPos(rp[1])
-        this.startMove()
-        console.log("start move~!~~~")
+        this.startMove() 
     }
     public isCanMove(){
         return this.isAlive
@@ -90,7 +90,7 @@ export default class MonUnit extends BaseUnit {
 
     //获取当前怪物移动速度 ,有可能变化
     public getCurMonSpeed(){
-        return this.monData.moveSpeed
+        return this.monData.moveSpeed*(1 - this.buffer.getBSpeed())
     }
     public moveToTarget(){
         let dis = cc.pDistance(this.node.position,this.targetPos) //算剩余距离
@@ -99,7 +99,7 @@ export default class MonUnit extends BaseUnit {
         this.curmoveSeq = cc.sequence(act,cc.callFunc(()=>{
             let rp:[number,cc.Vec2,string] = ConfigManager.getInstance().getRoadPoint(this.curPosId+1)
             if(rp[2]=="0"){
-                console.log("err here,到了最后一个点")
+                
                 GameController.getInstance().monEscape(this)
                 this.remove()
             }else{
@@ -136,10 +136,22 @@ export default class MonUnit extends BaseUnit {
        
     }
     //buffer触发的事件
-    public bufEvent(buf:BufferData){
-        if(buf.bufferType == 3){ //伤害造成的buf
+    public bufEvent(buf:BufferData,state){
+ 
+        if(state==0){ //buff的一次触发
+            if(buf.bufferType == 3){ //伤害造成的buf
 
+            }
+        }else if(state==1){ //buff的一次添加
+            if(buf.bufferType == 2){
+                this.speedChange()
+            }
+        }else{ //buff的一次移除
+            if(buf.bufferType == 2){
+                this.speedChange()
+            }
         }
+      
     }
 
     public addBuff(buf:BufferData){

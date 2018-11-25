@@ -24,10 +24,10 @@ export default class BufferBase  {
     private bufferList:BufferData[] = new Array<BufferData>() //buffer的数组
     private bufferChangeSpeed:number = 0
     private bufferChangeAttackSpeed:number = 0
-    private bufferTime:{[key:number]:number} = {} //buffer的剩余时间
- 
+
     private funcInterval:{[key:number]:number} = {} //计时器的计时key
     private bufInterval:{[key:number]:number} = {} //buffer的更新计时器
+    private bufCallBack:Function = null
     //获得最终buffer改变的速度
     public getBSpeed(){
         return this.bufferChangeSpeed
@@ -46,7 +46,6 @@ export default class BufferBase  {
                 return
             }
             if(mBuf.bufferLevel == buf.bufferLevel){
-                console.log("buffer被刷新了")
                 clearInterval(this.funcInterval[buf.id])
                 this.funcInterval[buf.id] = setInterval(function(){
                     this.removeBuff(buf)
@@ -54,14 +53,14 @@ export default class BufferBase  {
                 return
             }
             this.removeBuff(mBuf) //先移除这个buf，在重新添加
-        }
-        console.log("这个buff的类型是"+buf.bufferType)
+        } 
         switch(buf.bufferType){
             case 1:
                 this.bufferChangeAttackSpeed += buf.param
                 break;
             case 2:
                 this.bufferChangeSpeed+=buf.param
+                this.buffUpdateInterval(buf,1)
                 break;
             case 3: //持续伤害类型的buff
                 this.bufInterval[buf.id] = setInterval(function(){this.buffUpdateInterval(buf)}.bind(this),1000)
@@ -77,10 +76,14 @@ export default class BufferBase  {
             this.removeBuff(buf)
         }.bind(this),buf.duration*1000)
     }
-
-    //持续类型的buff的更新
-    public buffUpdateInterval(buf:BufferData){
-        console.log("update buffer"+buf.id)
+    public setBuffEventCallBack(cb){
+        this.bufCallBack = cb
+    }
+    //持续类型的buff的更新,或者其他类型的buff需要有回调的事件，会告诉buffer对象 , 包含三个状态，0,1,2 0表示buff的一次触发，1，表示buff的添加，2表示buff的移除
+    public buffUpdateInterval(buf:BufferData,state = 0){
+        if(this.bufCallBack!=null){
+            this.bufCallBack(buf,state)
+        }
     }
 
     //移除一个buff,将对应的计时器移除
@@ -95,6 +98,7 @@ export default class BufferBase  {
                 break;
             case 2:
                 this.bufferChangeSpeed -= buf.param
+                this.buffUpdateInterval(buf,2)
                 break;
             case 3:
                 clearInterval(this.bufInterval[buf.id])
@@ -130,8 +134,7 @@ export default class BufferBase  {
         }
         return false
     }
-    public getBuffById(id:number):BufferData{
-        console.log("检查buff:"+id+"    yuanchag："+this.bufferList.length)
+    public getBuffById(id:number):BufferData{ 
         for(var i=0;i<this.bufferList.length;i++){
             if(this.bufferList[i].id == id){
                 return this.bufferList[i]
