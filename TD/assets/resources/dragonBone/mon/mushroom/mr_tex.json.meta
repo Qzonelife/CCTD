@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "9895c415-bd21-4be2-bb99-93628b536e2d",
+  "atlasJson": "{\r\n\t\"width\": 256,\r\n\t\"imagePath\": \"蘑菇一_tex.png\",\r\n\t\"height\": 256,\r\n\t\"name\": \"蘑菇一\",\r\n\t\"SubTexture\": [{\r\n\t\t\"width\": 109,\r\n\t\t\"y\": 179,\r\n\t\t\"height\": 48,\r\n\t\t\"name\": \"椭圆 1\",\r\n\t\t\"x\": 1\r\n\t}, {\r\n\t\t\"width\": 16,\r\n\t\t\"y\": 229,\r\n\t\t\"height\": 25,\r\n\t\t\"name\": \"左手\",\r\n\t\t\"x\": 1\r\n\t}, {\r\n\t\t\"width\": 37,\r\n\t\t\"y\": 46,\r\n\t\t\"height\": 38,\r\n\t\t\"name\": \"右小蘑菇头\",\r\n\t\t\"x\": 212\r\n\t}, {\r\n\t\t\"width\": 89,\r\n\t\t\"y\": 104,\r\n\t\t\"height\": 73,\r\n\t\t\"name\": \"身体\",\r\n\t\t\"x\": 1\r\n\t}, {\r\n\t\t\"width\": 62,\r\n\t\t\"y\": 125,\r\n\t\t\"height\": 29,\r\n\t\t\"name\": \"五官\",\r\n\t\t\"x\": 92\r\n\t}, {\r\n\t\t\"width\": 149,\r\n\t\t\"y\": 1,\r\n\t\t\"height\": 101,\r\n\t\t\"name\": \"蘑菇头\",\r\n\t\t\"x\": 1\r\n\t}, {\r\n\t\t\"width\": 58,\r\n\t\t\"y\": 1,\r\n\t\t\"height\": 122,\r\n\t\t\"name\": \"右手+长矛\",\r\n\t\t\"x\": 152\r\n\t}, {\r\n\t\t\"width\": 39,\r\n\t\t\"y\": 1,\r\n\t\t\"height\": 43,\r\n\t\t\"name\": \"左小蘑菇头\",\r\n\t\t\"x\": 212\r\n\t}]\r\n}",
+  "texture": "515f730c-dbb0-4e2e-8d32-c7b8e5cf78a9",
+  "subMetas": {}
+}

@@ -25,7 +25,7 @@ export default class BufferBase  {
     private bufferChangeSpeed:number = 0
     private bufferChangeAttackSpeed:number = 0
 
-    private funcInterval:{[key:number]:number} = {} //计时器的计时key
+    private functionTimeout:{[key:number]:number} = {} //计时器的计时key
     private bufInterval:{[key:number]:number} = {} //buffer的更新计时器
     private bufCallBack:Function = null
     //获得最终buffer改变的速度
@@ -46,8 +46,8 @@ export default class BufferBase  {
                 return
             }
             if(mBuf.bufferLevel == buf.bufferLevel){
-                clearInterval(this.funcInterval[buf.id])
-                this.funcInterval[buf.id] = setInterval(function(){
+                clearTimeout(this.functionTimeout[buf.id])
+                this.functionTimeout[buf.id] = setTimeout(function(){
                     this.removeBuff(buf)
                 }.bind(this),buf.duration*1000)
                 return
@@ -71,8 +71,7 @@ export default class BufferBase  {
         }
  
         this.bufferList.push(buf)
-        this.funcInterval[buf.id] = setInterval(function(){
-           
+        this.functionTimeout[buf.id] = setTimeout(function(){
             this.removeBuff(buf)
         }.bind(this),buf.duration*1000)
     }
@@ -88,9 +87,9 @@ export default class BufferBase  {
 
     //移除一个buff,将对应的计时器移除
     public removeBuff(buf:BufferData){
-        if(this.funcInterval[buf.id]!=null){
-            clearInterval(this.funcInterval[buf.id])
-            this.funcInterval[buf.id] = null
+        if(this.functionTimeout[buf.id]!=null){
+            clearTimeout(this.functionTimeout[buf.id])
+            this.functionTimeout[buf.id] = null
         }
         switch(buf.bufferType){
             case 1:
@@ -114,10 +113,10 @@ export default class BufferBase  {
     }
     //清除所有的buff
     public clearBuff(){
-       for(let k in this.funcInterval){
-           clearInterval(this.funcInterval[k])
+       for(let k in this.functionTimeout){
+           clearTimeout(this.functionTimeout[k])
        }
-       this.funcInterval = {}
+       this.functionTimeout = {}
        for(let k in this.bufInterval){
             clearInterval(this.bufInterval[k])
        }

@@ -1,5 +1,7 @@
 import UIManager from "../Manager/UIManager";
 import GameController from "../GameController";
+import WindowsManager from "../WindowsManager";
+import RoleData from "../RoleData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -16,7 +18,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class MainSceneUI{
     constructor(){
-        cc.loader.loadRes("prefabs/UI/mainSceneUI",(err,res)=>{
+        cc.loader.loadRes("prefabs/ui/mainSceneUI",(err,res)=>{
             if(err){
                 console.log("ui加载失败")
                 console.log(err.message)
@@ -27,6 +29,7 @@ export default class MainSceneUI{
         })
     }
     private uiNode:cc.Node
+    private txtGold:cc.Label
     //ui初始化
     private initUI(res:cc.Prefab){
         this.uiNode = cc.instantiate(res)
@@ -43,10 +46,16 @@ export default class MainSceneUI{
         btnPurchaseTd.node.on("click",this.onClickPurchase,this)
         let btnCombine = this.uiNode.getChildByName("btnCombine").getComponent(cc.Button)
         btnCombine.node.on("click",this.onClickCombine,this)
-    }
 
+        this.txtGold = btnGold.node.getChildByName("value").getComponent(cc.Label)
+        this.update()
+    }
+    public update(){
+        this.txtGold.string = RoleData.roleGold.toString()
+    }
     private onClickGlod(){
         console.log("点击了金币")
+        WindowsManager.getInstance().openWindow("prefabs/ui/baseWin")
     }
     private onClickGem(){
         console.log("点击了宝石")

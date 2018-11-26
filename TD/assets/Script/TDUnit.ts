@@ -29,6 +29,12 @@ export default class TDUnit extends DraggableUnit {
 
     public target:MonUnit
     private buffer:BufferBase = new BufferBase()//buffer效果
+
+
+    public  init(){
+        super.init()
+        this.buffer.setBuffEventCallBack(this.bufEvent.bind(this)) 
+    }
     public isTargetAlive():boolean{
         if(this.target == null){
             return false
@@ -176,13 +182,11 @@ export default class TDUnit extends DraggableUnit {
        
 
     }
-    //buffer触发的事件
-    public bufEvent(buf:BufferData){
-        if(buf.bufferType == 3){ //伤害造成的buf
+       //buffer触发的事件
+    public bufEvent(buf:BufferData,state){
 
-        }
+        
     }
-
     public addBuff(buf:BufferData){
         this.buffer.addBuff(buf)
     }

@@ -2,6 +2,7 @@ import ConfigManager from "./Manager/ConfigManager";
 import UIManager from "./Manager/UIManager";
 import GameController from "./GameController";
 import MainSceneUI from "./UI/MainSceneUI";
+import RoleData from "./RoleData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -21,6 +22,7 @@ export default class Main extends cc.Component {
  
  
     start () {
+        RoleData.init()
         UIManager.getInstance().init()
         ConfigManager.getInstance().loadGrid(this.onConfigComplete)
     }

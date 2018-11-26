@@ -140,7 +140,7 @@ export default class MonUnit extends BaseUnit {
  
         if(state==0){ //buff的一次触发
             if(buf.bufferType == 3){ //伤害造成的buf
-
+                
             }
         }else if(state==1){ //buff的一次添加
             if(buf.bufferType == 2){

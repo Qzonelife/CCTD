@@ -152,13 +152,10 @@ export default class GameController {
         //首先判断该位置是否已经存在防御塔了
         if(this.unitDict[posId]!=null){
             let tarTd:TDUnit = this.unitDict[posId]
-            if(unit.tdData.id == tarTd.tdData.id){  //形同的合体
-                this.removeTd(unit)
-                tarTd.doLevelUpAction()
-            }else{ //不同的换位
-                //先改位置映射 
+            if(!this.combineTwoTd(unit,tarTd)){
                 this.exchangeUnit(unit,tarTd) 
             }
+ 
         }else{
             let orgPosId:number = unit.curPosId
             unit.setPosById(posId)
@@ -177,6 +174,21 @@ export default class GameController {
         }
         unit.remove()
    }
+   //合成两个防御塔
+   public combineTwoTd(tda:TDUnit,tdb:TDUnit){
+        if(tda.tdData.level == tdb.tdData.level){ //首先是等级相同
+            if(ConfigManager.getInstance().getTdByLevel(tda.tdData.level+1)!=null){
+
+                this.removeTd(tda)
+                tdb.doLevelUpAction()
+                return true
+            }else{ //已经是最高级了，无法合成
+                return false
+            }
+        }
+        return false
+   }
+
    //进行一键合成操作
    public combineOneKey(){
        let ignore:{[key:number]:boolean} = {}
@@ -199,12 +211,10 @@ export default class GameController {
                 }
             }
         }
+
         for(var i=0;i<removeId.length;i++){
-             this.removeTd(removeId[i])
-        }
-        for(var i=0;i<levelUpId.length;i++){
-            levelUpId[i].levelUp()
-        }
+            this.combineTwoTd(removeId[i],levelUpId[i])
+        } 
 
    }
    public exchangeUnit(unit1:TDUnit,unit2:TDUnit){
@@ -231,7 +241,7 @@ export default class GameController {
 
    }
 
-//怪物被打死
+    //怪物被打死
    public monDie(monUnit:MonUnit){
 
    }

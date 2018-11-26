@@ -6,6 +6,7 @@ import TDData from "./TDData";
 import MonCreator from "./MonCreator";
 import MonUnit from "./MonUnit";
 import BufferManager from "./BufferManager";
+import WinBase from "./Base/WinBase";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -30,6 +31,39 @@ export default class WindowsManager {
         return this.instance
    }
    
+   private winPool:{[key:string]:WinBase} = {}
+   private curOpenWindow:WinBase
+
+
+   public openWindow(winName){
+       
+        if(this.curOpenWindow!=null){
+            if(this.curOpenWindow == this.winPool[winName]){
+                return
+            }
+            this.curOpenWindow.close()
+        }
+        if(this.winPool[winName]!=null){
+            this.curOpenWindow = this.winPool[winName]
+            this.curOpenWindow.open()
+        }else{
+            cc.loader.loadRes(winName,function(err,res){
+                let wd:cc.Node = cc.instantiate(res)
+                wd.parent = UIManager.getInstance().windowLayer
+                let wb = wd.getComponent(WinBase)
+                this.winPool[winName] = wb
+                this.curOpenWindow = wb
+                wb.open()
+            }.bind(this))
+        }
+   }
+   public closeWindow(wb:WinBase){
+       if(wb == this.curOpenWindow){
+           wb.close()
+           this.curOpenWindow = null
+       }
+   }
+
    
 
 
