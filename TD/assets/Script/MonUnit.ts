@@ -5,6 +5,7 @@ import ConfigManager from "./Manager/ConfigManager";
 import GameController from "./GameController";
 import BufferBase from "./BufferBase";
 import BufferData from "./BufferData";
+import BloodBar from "./BloodBar";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -26,34 +27,41 @@ export default class MonUnit extends BaseUnit {
     public monData:MonData
     public curPosId:number
     public targetPos:cc.Vec2
-    public bloodBar:cc.ProgressBar
+    //public bloodBar:cc.ProgressBar
+    public bloodBar:BloodBar
     public isAlive:boolean
     private buffer:BufferBase = new BufferBase()
     public curBlood //当前血量
     public  init(){
         super.init()
         this.buffer.setBuffEventCallBack(this.bufEvent.bind(this))
-        this.bloodBar = this.node.getChildByName("blood").getComponent(cc.ProgressBar)
+        this.bloodBar = this.node.getChildByName("blood").getComponent(BloodBar)
+        this.bloodBar.setOwner(this)
     }
-    public setBloodVisible(isVisible:boolean){
-        if(this.bloodBar.node.active == isVisible)
-            return
-        this.bloodBar.node.active = isVisible
-    }
+    // public setBloodVisible(isVisible:boolean){
+    //     if(this.bloodBar.node.active == isVisible)
+    //         return
+    //     this.bloodBar.node.active = isVisible
+    // }
     public setTdData(monData:MonData){ //设置数据，各种需要刷新下
         this.monData = monData
         this.updateSprite()
     }
     public updateSprite(){  
-        UnitPool.getInstance().getSprite(this.monData.spriteRes,(res)=>{
-            this.spriteNode.spriteFrame = res
-        })
+        UnitPool.getInstance().getDragonBoneData(this.monData.spriteRes,(tuple)=>{
+ 
+            this.dragonBone.dragonAsset = tuple[0]
+            this.dragonBone.dragonAtlasAsset = tuple[1]
+            this.dragonBone.armatureName = "armatureName"
+            this.dragonBone.playAnimation("newAnimation",-1)
+         
+        }) 
     }
 
     public aliveUnit(){
-        this.setBloodVisible(false)
+        this.bloodBar.setBloodVisible(false)
         this.curBlood = this.monData.blood
-        this.bloodBar.progress = 1
+        this.bloodBar.setBloodProgress(1)
         this.isAlive = true
     }
     public removeUnit(){
@@ -93,7 +101,8 @@ export default class MonUnit extends BaseUnit {
         return this.monData.moveSpeed*(1 - this.buffer.getBSpeed())
     }
     public moveToTarget(){
-        let dis = cc.pDistance(this.node.position,this.targetPos) //算剩余距离
+        
+        let dis = this.node.position.sub(this.targetPos).mag() //算剩余距离
         let t = dis/this.getCurMonSpeed()
         let act = cc.moveTo(t,this.targetPos)
         this.curmoveSeq = cc.sequence(act,cc.callFunc(()=>{
@@ -112,29 +121,18 @@ export default class MonUnit extends BaseUnit {
         this.node.runAction(this.curmoveSeq)
     }
 
-    private recordHideBlood = -1
     public sufferDamage(val){ 
         this.curBlood = this.curBlood-val
         this.curBlood = this.curBlood<=0? 0:this.curBlood
-        this.bloodBar.progress = this.curBlood/this.monData.blood
-        this.setBloodVisible(true)
-        if(this.recordHideBlood==-1){ //记录当前显示血条的时候，血量是多少
-            this.recordHideBlood = this.curBlood
-            this.scheduleOnce(this.hideBloodBar,2)
-        }
+        this.bloodBar.setBloodProgress(this.curBlood/this.monData.blood)
+ 
+      
         if(this.curBlood<=0){
             GameController.getInstance().monDie(this)
             this.remove()
         }
     }
-    public hideBloodBar(){
-        //记录了这么久，都还是没有变化，就隐藏血条吧
-        if(this.curBlood==this.recordHideBlood){
-            this.setBloodVisible(false)
-        }
-        this.recordHideBlood = -1
-       
-    }
+
     //buffer触发的事件
     public bufEvent(buf:BufferData,state){
  
@@ -159,6 +157,7 @@ export default class MonUnit extends BaseUnit {
     }
 
     public remove(){
+        this.bloodBar.setBloodVisible(false)
         this.buffer.clearBuff()
         this.isAlive = false
         this.setActive(false)

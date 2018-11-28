@@ -62,15 +62,15 @@ export default class BulletUnit extends BaseUnit{
     }
 
     public moveToPos(targetPos:cc.Vec2){
-        let delt:cc.Vec2 = cc.pSub(targetPos,this.node.position)
-        let newPos = cc.pAdd(this.node.position,delt.normalize().mul(this.bulletData.moveSpeed))
+        let delt:cc.Vec2 = targetPos.sub(this.node.position) 
+        let newPos = this.node.position.add(delt.normalizeSelf().mul(this.bulletData.moveSpeed)) 
         this.setPos(newPos)
         if(this.checkHit(targetPos)){
             BulletManager.hitTarget(this,this.target)
         }
     }
     public checkHit(pos:cc.Vec2){
-        return cc.pDistance(this.node.position,pos) < 20
+        return this.node.position.sub(pos).mag() < 20
     }
  
 }

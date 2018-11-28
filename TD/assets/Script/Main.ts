@@ -21,8 +21,8 @@ export default class Main extends cc.Component {
 
  
  
-    start () {
-        RoleData.init()
+    start () { 
+        RoleData.init() 
         UIManager.getInstance().init()
         ConfigManager.getInstance().loadGrid(this.onConfigComplete)
     }
@@ -30,6 +30,7 @@ export default class Main extends cc.Component {
     onConfigComplete(){ 
         console.log("load config complete ~~~~~~~~~~~")
         GameController.getInstance().init()
+        GameController.getInstance().initByRoleData()
         GameController.getInstance().startGameLogic()
         let uiMain = new MainSceneUI()
     }

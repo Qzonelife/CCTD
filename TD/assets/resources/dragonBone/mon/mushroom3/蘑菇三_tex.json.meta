@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "341a489e-833c-49ab-ae3d-17999e69aa49",
+  "atlasJson": "{\"width\":128,\"SubTexture\":[{\"width\":14,\"y\":229,\"height\":26,\"name\":\"lleg\",\"x\":50},{\"width\":14,\"y\":229,\"height\":26,\"name\":\"rleg\",\"x\":66},{\"width\":27,\"y\":207,\"height\":29,\"name\":\"lhand\",\"x\":1},{\"width\":67,\"y\":86,\"height\":119,\"name\":\"body\",\"x\":1},{\"width\":18,\"y\":207,\"height\":31,\"name\":\"rhand\",\"x\":30},{\"width\":23,\"y\":207,\"height\":20,\"name\":\"eye\",\"x\":50},{\"width\":22,\"y\":238,\"height\":11,\"name\":\"meimao\",\"x\":1},{\"width\":12,\"y\":240,\"height\":10,\"name\":\"zui\",\"x\":25},{\"width\":124,\"y\":1,\"height\":83,\"name\":\"head\",\"x\":1}],\"height\":256,\"name\":\"蘑菇三\",\"imagePath\":\"蘑菇三_tex.png\"}",
+  "texture": "2430d9bf-2915-4719-ae7b-4b2041458226",
+  "subMetas": {}
+}

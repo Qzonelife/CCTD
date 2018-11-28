@@ -18,7 +18,7 @@ export default class DGTest extends cc.Component {
     start () {
         cc.loader.loadResDir("dragonBone/mon/mushroom",function(err,assets){
 
-           
+        
  
 
 

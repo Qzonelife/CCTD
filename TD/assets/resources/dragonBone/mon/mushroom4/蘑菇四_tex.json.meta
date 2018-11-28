@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "637d173b-0a27-486b-802f-339a932774b6",
+  "atlasJson": "{\"width\":256,\"SubTexture\":[{\"width\":15,\"y\":97,\"height\":35,\"name\":\"lhand\",\"x\":124},{\"width\":17,\"y\":130,\"height\":26,\"name\":\"lleg\",\"x\":99},{\"width\":19,\"y\":130,\"height\":27,\"name\":\"rleg\",\"x\":78},{\"width\":69,\"y\":1,\"height\":113,\"name\":\"body\",\"x\":144},{\"width\":27,\"y\":1,\"height\":42,\"name\":\"rhand\",\"x\":215},{\"width\":75,\"y\":97,\"height\":32,\"name\":\"qunzi\",\"x\":1},{\"width\":141,\"y\":1,\"height\":94,\"name\":\"mogougai\",\"x\":1},{\"width\":42,\"y\":131,\"height\":9,\"name\":\"eye\",\"x\":1},{\"width\":44,\"y\":97,\"height\":31,\"name\":\"smoke\",\"x\":78}],\"height\":256,\"name\":\"蘑菇四\",\"imagePath\":\"蘑菇四_tex.png\"}",
+  "texture": "9c5893bd-8533-4432-a08a-9f2c535ddb94",
+  "subMetas": {}
+}

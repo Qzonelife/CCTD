@@ -75,15 +75,18 @@ export default class ConfigManager {
     }
 
     //加载网格配置
-    public loadGrid(callBack){
+    public loadGrid(callBack){ 
+ 
         cc.loader.loadRes("config/unitGridCfg",(err,res)=>{
            if(err){
                 console.log("加载配置失败！！地图网格配置")
                 console.log(err.message)
            }else{
+                res = res.json
                 let column = Number(res["column"])
                 let sizeScale = Number(res["sizeScale"])
-                let pos = res["pos"]
+                let pos = res["pos"] 
+ 
                 pos.forEach(element => {
                     let vct:cc.Vec2 = this.getPosByStr(element["pos"])
                     vct = new cc.Vec2(vct.x*sizeScale,vct.y*sizeScale)
@@ -111,6 +114,8 @@ export default class ConfigManager {
                  console.log("加载配置失败！！防御塔配置")
                  console.log(err.message)
             }else{ 
+                
+                 res = res.json
                  let tds = res["tds"]
                  tds.forEach(element => { 
                      let tdd = new TDData(element)
@@ -129,7 +134,8 @@ export default class ConfigManager {
                  console.log("加载配置失败！！，怪物配置")
                  console.log(err.message)
             }else{ 
-
+                
+                 res = res.json
                 //读取怪物的信息
                  let mons = res["mons"]
                  mons.forEach(element => { 
@@ -157,6 +163,8 @@ export default class ConfigManager {
                  console.log("加载配置失败！！，子弹配置")
                  console.log(err.message)
             }else{ 
+                
+                 res = res.json
                  let bulRes = res["bullets"]
                  bulRes.forEach(element => { 
                      let bul = new BulletData(element)
@@ -174,6 +182,8 @@ export default class ConfigManager {
                 console.log("加载配置失败！！，buffer配置")
                 console.log(err.message)
             }else{
+                
+                res = res.json
                 let buf = res["buffs"]
                 buf.forEach(element => {
                     let levelsDetail = element["levels"]

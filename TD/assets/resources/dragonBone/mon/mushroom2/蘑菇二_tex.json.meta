@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "ace3e3e0-918b-4151-bbcb-5609d1886606",
+  "atlasJson": "{\"width\":256,\"SubTexture\":[{\"width\":109,\"y\":252,\"height\":48,\"name\":\"椭圆 1\",\"x\":1},{\"width\":103,\"y\":88,\"height\":99,\"name\":\"mushroom2_body\",\"x\":1},{\"width\":67,\"y\":149,\"height\":27,\"name\":\"mushroom2_zui\",\"x\":106},{\"width\":48,\"y\":1,\"height\":19,\"name\":\"mushroom2_eye\",\"x\":161},{\"width\":37,\"y\":1,\"height\":22,\"name\":\"mushroom2_shetou\",\"x\":211},{\"width\":32,\"y\":22,\"height\":23,\"name\":\"mushroom2_rhand\",\"x\":161},{\"width\":22,\"y\":25,\"height\":23,\"name\":\"mushroom2_lhand\",\"x\":195},{\"width\":162,\"y\":189,\"height\":61,\"name\":\"mushroom2_back\",\"x\":1},{\"width\":158,\"y\":1,\"height\":85,\"name\":\"mushroom2_head\",\"x\":1},{\"width\":134,\"y\":88,\"height\":59,\"name\":\"mushroom2_front\",\"x\":106}],\"height\":512,\"name\":\"蘑菇二\",\"imagePath\":\"蘑菇二_tex.png\"}",
+  "texture": "1bafd5ed-bc2a-41a5-89c2-7cc216ef3ab5",
+  "subMetas": {}
+}

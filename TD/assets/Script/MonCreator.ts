@@ -129,8 +129,7 @@ export default class MonCreator {
                  continue
              }
              if(tdUnit.checkSetTarget(this.monLs[i])){
-                
-                 console.log("target set successful")
+                 
                 break
             }
          }

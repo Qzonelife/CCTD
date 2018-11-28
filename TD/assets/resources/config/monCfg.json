@@ -1,8 +1,8 @@
 {
 	"mons":[
-		{"id":1,"name":"测试怪物1","level":1,"blood":1000,"scale":1,"moveSpeed":100,"spriteRes":"texture/Unit/u5"},
-		{"id":2,"name":"测试怪物2","level":1,"blood":1000,"scale":1,"moveSpeed":100,"spriteRes":"texture/Unit/u6"},
-		{"id":3,"name":"测试怪物3","level":1,"blood":100,"scale":1,"moveSpeed":100,"spriteRes":"texture/Unit/u7"}
+		{"id":1,"name":"测试怪物1","level":1,"blood":1000,"scale":1,"moveSpeed":100,"spriteRes":"dragonBone/mon/mushroom1"},
+		{"id":2,"name":"测试怪物2","level":1,"blood":1000,"scale":1,"moveSpeed":100,"spriteRes":"dragonBone/mon/mushroom1"},
+		{"id":3,"name":"测试怪物3","level":1,"blood":100,"scale":1,"moveSpeed":100,"spriteRes":"dragonBone/mon/mushroom1"}
 
 	],
 	"rounds":[

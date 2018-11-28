@@ -38,8 +38,7 @@ export default class BufferBase  {
         return this.bufferChangeAttackSpeed
     }
     //添加一个buff
-    public addBuff(buf:BufferData){
-        console.log("添加buf："+buf.id)
+    public addBuff(buf:BufferData){ 
         let mBuf = this.getBuffById(buf.id)
         if(mBuf!=null){ //先判断是否已经有这个同类的buff了，如果有，则判断等级
             if(mBuf.bufferLevel > buf.bufferLevel){ //新的buff等级较低，直接返回
@@ -106,8 +105,7 @@ export default class BufferBase  {
             default:
                 
                 break;
-        }
-        console.log("移除buff："+buf.id)
+        } 
        this.bufferList.splice( this.bufferList.indexOf(buf),1)
 
     }

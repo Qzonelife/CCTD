@@ -18,7 +18,7 @@ export default class BaseUnit extends cc.Component {
     parentNode:cc.Node //对象父节点
 
     protected spriteNode:cc.Sprite //动画对象
-
+    protected dragonBone:dragonBones.ArmatureDisplay //龙骨对象
     public setParent(parent:cc.Node){
         this.parentNode = parent
         this.node.parent = this.parentNode
@@ -32,6 +32,7 @@ export default class BaseUnit extends cc.Component {
     }
     public init(){
         this.spriteNode = this.node.getChildByName("body").getComponent(cc.Sprite)
+        this.dragonBone = this.node.getChildByName("body").getComponent(dragonBones.ArmatureDisplay) 
     }
     start(){
         //this.spriteNode = this.node.getChildByName("body").getComponent(cc.Sprite)
@@ -42,7 +43,7 @@ export default class BaseUnit extends cc.Component {
         return this.disToPos(unit.node.position)
     }
     public disToPos(pos:cc.Vec2):number{
-        return cc.pDistance(this.node.position,pos)
+        return this.node.position.sub(pos).mag()  
     }
     // update (dt) {}
 }

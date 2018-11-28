@@ -6,6 +6,7 @@ import TDData from "./TDData";
 import MonCreator from "./MonCreator";
 import MonUnit from "./MonUnit";
 import BufferManager from "./BufferManager";
+import RoleData from "./RoleData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -228,6 +229,8 @@ export default class GameController {
        }else{
            console.log("换位失败")
        }
+       
+       this.updateCurrentTdLs()
    }
 
 
@@ -241,6 +244,22 @@ export default class GameController {
 
    }
 
+   //通过角色本地数据初始化
+   public initByRoleData(){
+       for(var i in RoleData.tdArr){
+            this.createTDUnitByPos(RoleData.tdArr[i][0],RoleData.tdArr[i][1])
+       }
+       
+   }
+
+   public updateCurrentTdLs(){
+        let arr:Array<[number,number]> = new Array<[number,number]>()
+        for(var i in this.activeTd){
+           arr.push([this.activeTd[i].curPosId,this.activeTd[i].tdData.id])
+        } 
+        RoleData.tdArr = arr
+        RoleData.saveTdInfo()
+   }
     //怪物被打死
    public monDie(monUnit:MonUnit){
 

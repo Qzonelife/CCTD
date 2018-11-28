@@ -160,4 +160,31 @@ export default class UnitPool{
             callBack(res)
         })
     }
+    private dragonBoneDict:{[key:string]:[dragonBones.DragonBonesAsset,dragonBones.DragonBonesAtlasAsset]} =  {}
+    //获得龙骨数据
+    public getDragonBoneData(dragonBoneName,callBack){
+ 
+        if(this.dragonBoneDict[dragonBoneName] == null){
+            cc.loader.loadResDir(dragonBoneName,function(err,assets){
+     
+    
+                let tuple:[dragonBones.DragonBonesAsset,dragonBones.DragonBonesAtlasAsset] = [null,null]
+ 
+                for(var i in assets){
+                    if(assets[i] instanceof dragonBones.DragonBonesAsset){
+                        tuple[0] = assets[i]
+                    }
+                    if(assets[i] instanceof dragonBones.DragonBonesAtlasAsset){
+                        tuple[1] = assets[i]
+                    }
+                } 
+                this.dragonBoneDict[dragonBoneName] = tuple
+ 
+                callBack(tuple)
+
+            }.bind(this))
+        }else{
+            callBack(this.dragonBoneDict[dragonBoneName]) //直接返回数据
+        }
+    }
 }
