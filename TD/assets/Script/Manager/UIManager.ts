@@ -28,6 +28,7 @@ export default class UIManager {
     platformLayer:cc.Node
     bulLayer:cc.Node
     bloodLayer:cc.Node
+    flyNumLayer:cc.Node
     public init(){
         this.canvas = cc.find("Canvas").getComponent(cc.Canvas)
         this.tdLayer = cc.find("Canvas/sceneLayer/tdLayer")
@@ -38,6 +39,7 @@ export default class UIManager {
         this.monLayer = cc.find("Canvas/sceneLayer/monLayer")
         this.bulLayer = cc.find("Canvas/sceneLayer/bulLayer")
         this.bloodLayer = cc.find("Canvas/sceneLayer/bloodLayer")
+        this.flyNumLayer = cc.find("Canvas/sceneLayer/flyNumLayer")
     }
 
     public adjustPosByScreen(pos:cc.Vec2):cc.Vec2{

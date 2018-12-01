@@ -5,6 +5,8 @@ import MonUnit from "./MonUnit";
 import MonData from "./MonData";
 import BulletUnit from "./BulletUnit";
 import BulletData from "./BulletData";
+import FlyNumUnit from "./FlyNumUnit";
+import UIManager from "./Manager/UIManager";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -186,5 +188,34 @@ export default class UnitPool{
         }else{
             callBack(this.dragonBoneDict[dragonBoneName]) //直接返回数据
         }
+    }
+ 
+    private flyUnitPf:cc.Node
+    private flyUnitLs:FlyNumUnit[] = new Array<FlyNumUnit>()
+    public getFlyUnit(callBack){
+        if(this.flyUnitPf == null){
+            cc.loader.loadRes("prefabs/flyNumUnit",cc.Prefab,(err,res)=>{
+                 this.flyUnitPf = res
+                 let fObj:cc.Node = cc.instantiate(res)
+                 fObj.parent = UIManager.getInstance().flyNumLayer
+                 let fun = fObj.getComponent(FlyNumUnit)
+                 fun.init()
+ 
+                 callBack(fun) 
+            })
+        }else{
+            if(this.flyUnitLs.length<=0){
+                let fObj:cc.Node = cc.instantiate(this.flyUnitPf)
+                let fun = fObj.getComponent(FlyNumUnit)
+                fun.init()
+                callBack(fun)
+            }else{
+                let fun = this.flyUnitLs.pop()
+                callBack(fun)
+            }
+        }
+    }
+    public removeFlyUnit(flyUnit:FlyNumUnit){
+        this.flyUnitLs.push(flyUnit)
     }
 }

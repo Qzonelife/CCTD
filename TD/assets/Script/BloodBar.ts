@@ -52,8 +52,7 @@ export default class BloodBar extends cc.Component {
         }
     }
 
-    public hideBloodBar(){
-        console.log("隐藏咯")
+    public hideBloodBar(){ 
         //记录了这么久，都还是没有变化，就隐藏血条吧
         if(this.owner.curBlood==this.recordHideBlood){
             this.setBloodVisible(false)

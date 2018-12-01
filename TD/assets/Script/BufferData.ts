@@ -19,21 +19,24 @@ export default class BufferData  {
     name:string 
     bufferLevel:number
     bufferType:number
-    bufferDetail:[number,number] //buffer的数据细节，等级，持续时间，参数
+    bufferDetail:[number,number,number] //buffer的数据细节，等级，持续时间,触发概率，参数
     constructor(detail,jsonCfg){
 
         this.id = jsonCfg["id"]
         this.name = jsonCfg["name"]
         this.bufferType = jsonCfg["bufferType"]
         this.bufferLevel = detail["level"]
-        this.bufferDetail = [detail["duration"],detail["param"]];
-        
+        //this.bufferDetail = [detail["duration"],detail["rate"],detail["param"]];
+        this.bufferDetail = [detail["duration"],1,detail["param"]]; //概率先默认100%触发
     }
     get duration():number{
         return this.bufferDetail[0]
     }
-    get param():number{
+    get rate():number{
         return this.bufferDetail[1]
+    }
+    get param():number{
+        return this.bufferDetail[2]
     }
 
     get bufferDetailId():string{

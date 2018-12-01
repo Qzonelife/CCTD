@@ -20,6 +20,7 @@ export default class BufferBase  {
       * 1:改变攻击速度的buffer， 改变的总效果用一个变量被外部获取
       * 2：改变移动速度的buff,   改变的总效果用一个变量被外部获取
       * 3:持续伤害类型的buff,每隔1s触发一次
+      * 4:直接移除速度的buff，使怪物不能移动的，晕眩，禁锢，冰冻等。。。
       */
     private bufferList:BufferData[] = new Array<BufferData>() //buffer的数组
     private bufferChangeSpeed:number = 0
@@ -64,6 +65,9 @@ export default class BufferBase  {
             case 3: //持续伤害类型的buff
                 this.bufInterval[buf.id] = setInterval(function(){this.buffUpdateInterval(buf)}.bind(this),1000)
                 break;
+            case 4:  //移除速度的buff
+                this.buffUpdateInterval(buf,1)
+                break;
             default: 
                 console.log("添加了一个未知类型的buff:"+buf.id)
                 break;
@@ -102,6 +106,9 @@ export default class BufferBase  {
                 clearInterval(this.bufInterval[buf.id])
                 this.bufInterval[buf.id] = null
                 break;
+            case 4:
+                this.buffUpdateInterval(buf,2)
+                break;
             default:
                 
                 break;
@@ -109,6 +116,17 @@ export default class BufferBase  {
        this.bufferList.splice( this.bufferList.indexOf(buf),1)
 
     }
+
+    //检查目前身上是否有这种类型的buffer
+    public checkHasBufferType(bufferType){
+        for(var i in this.bufferList){
+            if(this.bufferList[i].bufferType == bufferType) {
+                return true
+            }
+        }
+        return false
+    }   
+
     //清除所有的buff
     public clearBuff(){
        for(let k in this.functionTimeout){

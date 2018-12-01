@@ -6,6 +6,7 @@ import GameController from "./GameController";
 import BufferBase from "./BufferBase";
 import BufferData from "./BufferData";
 import BloodBar from "./BloodBar";
+import FUNManager from "./FUNManager";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -131,12 +132,16 @@ export default class MonUnit extends BaseUnit {
         this.curBlood = this.curBlood-val
         this.curBlood = this.curBlood<=0? 0:this.curBlood
         this.bloodBar.setBloodProgress(this.curBlood/this.monData.blood)
- 
+        FUNManager.flyBlood(this.node,val)
       
         if(this.curBlood<=0){
             GameController.getInstance().monDie(this)
             this.remove()
         }
+    }
+    //检查当前怪物可移动状态，如果怪物身上具有buffertype == 4的，怪物则处于不可移动状态中
+    public moveStateChage(){
+
     }
 
     //buffer触发的事件
@@ -144,15 +149,19 @@ export default class MonUnit extends BaseUnit {
  
         if(state==0){ //buff的一次触发
             if(buf.bufferType == 3){ //伤害造成的buf
-                
+                this.sufferDamage(buf.param) //造成的伤害值
             }
         }else if(state==1){ //buff的一次添加
             if(buf.bufferType == 2){
                 this.speedChange()
+            }else if(buf.bufferType == 4){
+                this.moveStateChage()
             }
         }else{ //buff的一次移除
             if(buf.bufferType == 2){
                 this.speedChange()
+            }else if(buf.bufferType == 4){
+                this.moveStateChage()
             }
         }
       
