@@ -18,7 +18,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class MainSceneUI{
     constructor(){
-        cc.loader.loadRes("prefabs/UI/mainSceneUI",(err,res)=>{
+        cc.loader.loadRes("prefabs/ui/mainSceneUI",(err,res)=>{
             if(err){
                 console.log("ui加载失败")
                 console.log(err.message)
@@ -59,9 +59,12 @@ export default class MainSceneUI{
     }
     private onClickGem(){
         console.log("点击了宝石")
+        WindowsManager.getInstance().openWindow("prefabs/ui/TestPanel1")
     }
     private onClickHead(){
         console.log("点击了头像")
+        
+        WindowsManager.getInstance().openWindow("prefabs/ui/TestPanel2")
     }
     private onClickShop(){
         console.log("点击了商店")
