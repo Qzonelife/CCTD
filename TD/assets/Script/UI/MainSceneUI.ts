@@ -18,7 +18,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class MainSceneUI{
     constructor(){
-        cc.loader.loadRes("prefabs/ui/mainSceneUI",(err,res)=>{
+        cc.loader.loadRes("prefabs/UI/mainSceneUI",(err,res)=>{
             if(err){
                 console.log("ui加载失败")
                 console.log(err.message)

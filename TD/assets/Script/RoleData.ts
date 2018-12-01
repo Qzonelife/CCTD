@@ -34,7 +34,6 @@ export default class RoleData {
         if(tdd==null){
             this.saveTdInfo()
         }else{
-            console.log("_-------------=0-")
             let json = JSON.parse(tdd)
             let tdJson = json["tdArr"]
  

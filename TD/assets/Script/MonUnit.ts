@@ -75,6 +75,7 @@ export default class MonUnit extends BaseUnit {
         if(rp[2]=="0"){
             console.log("err here,设置到了最后一个点") //移除
         }
+
         this.setPos(rp[1])
         this.startMove() 
     }
@@ -82,7 +83,12 @@ export default class MonUnit extends BaseUnit {
         return this.isAlive
     }
     public startMove(){
-
+        let rpn:[number,cc.Vec2,string] = ConfigManager.getInstance().getRoadPoint(this.curPosId)
+        if(rpn[2]=="3"){ //看向左边
+            this.dragonBone.node.scaleX = -Math.abs(this.dragonBone.node.scaleX)
+        }else if(rpn[2] == "4"){ //看向右边
+            this.dragonBone.node.scaleX =  Math.abs(this.dragonBone.node.scaleX)
+        }
         let rp:[number,cc.Vec2,string] = ConfigManager.getInstance().getRoadPoint(this.curPosId+1)
         this.targetPos = rp[1]
         this.speedChange()
