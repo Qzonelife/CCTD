@@ -4,6 +4,8 @@ import UIManager from "./Manager/UIManager";
 import ConfigManager from "./Manager/ConfigManager";
 import TDUnit from "./TDUnit";
 import RoundData from "./RoundData";
+import GameController from "./GameController";
+import MonData from "./MonData";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -20,9 +22,52 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class MonCreator {
 
-     constructor(){
+     constructor(){ 
+    }
 
-     }
+
+    public killMonLs:MonData[] = new Array<MonData>()
+    public escapeMonLs:MonData[] = new Array<MonData>()
+    
+    public waveKillMon(mon:MonData){
+        this.killMonLs.push(mon)
+    }
+    public waveEscapeMon(mon:MonData){
+        this.escapeMonLs.push(mon)
+    }
+    //清除击杀逃跑信息
+    public clearWaveMonInfo(){
+        this.killMonLs.splice(0,this.killMonLs.length)
+        this.escapeMonLs.splice(0,this.escapeMonLs.length)
+    }
+    //获取一波的竹子
+    public getWaveBamboo(){
+        let bamboo = 0
+        this.killMonLs.forEach((elem)=>{
+            bamboo +=  elem.bamboo
+        })
+        return bamboo
+    }
+    //获取一波的宝石数量
+    public getWaveGem(){
+        let gem = 0
+        this.killMonLs.forEach((elem)=>{
+            gem +=  elem.gem
+        })
+        return gem
+    }
+    //获取一波的经验总和
+    public getWaveExp(){
+        let exp = 0
+        this.killMonLs.forEach((elem)=>{
+            exp +=  elem.killExp
+        })
+        this.escapeMonLs.forEach((elem)=>{
+            exp -=  elem.escapeExp
+        })
+        return exp
+    }
+
      public monLs:MonUnit[] = new Array<MonUnit>()
      public curRound:RoundData;
      public curMonArr:string[]; //怪物列表
@@ -32,6 +77,12 @@ export default class MonCreator {
      public checkMonIntervalId:number = - 1 //检查怪物是否全部死亡的计时器
      public isRoundChange = false //是否回合发生变化
      private monCreateTime = 1000
+
+     public setRoundById(roundId:number,isRoundChange = true){
+        let roundData = ConfigManager.getInstance().getRoundById(roundId)
+        this.setRound(roundData,isRoundChange)
+     }
+
      //设置回合的信息，会按照这个逻辑进行出怪
      public setRound(round:RoundData,isRoundChange = true){
         this.curRound = round
@@ -65,6 +116,7 @@ export default class MonCreator {
      public checkMon(){
         if(this.monLs.length<=0){ //怪物全部死亡了，开启下一波的怪物创建
             this.clearAllInterval()
+            GameController.getInstance().onWaveEnd() //一波结束，统计金币并且保存
             setTimeout(this.startNextWave.bind(this),3000)
         }else{ //在这里检查怪物是否全部死亡，移除列表外
             let deathLs:MonUnit[] = new Array<MonUnit>()
@@ -89,6 +141,7 @@ export default class MonCreator {
          }else{
             this.curWaveId++
             if(this.curWaveId>=this.curRound.waveLs.length){
+               GameController.getInstance().onRoundFinish() //一回合结束
                this.curWaveId = 0
             }
          }

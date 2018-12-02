@@ -1,3 +1,6 @@
+import Dispatcher from "./Util/Dispatcher";
+import Cmd from "./Define/Cmd";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -13,14 +16,53 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class RoleData {
 
-    public static roleGold:number = 0  //角色金币 
-    public static roleExp:number = 0 //角色经验
-    public static roleGem:number = 0 //角色宝石
+    private static _roleGold:number = 0  //角色金币 
+    private static _roleCurMaxLevelTd:number = 1 //角色当前等级最高级的防御塔 ，默认一级
+    private static _roleExp:number = 0 //角色经验
+    private static _roleGem:number = 0 //角色宝石
+
+
     public static tdArr:Array<[number,number]> = new Array<[number,number]>()
-    public static roleCurMaxLevelTd:string //角色当前等级最高级的防御塔
+    public static get roleGold(){
+        return this._roleGold
+    }
+    public static set roleGold(val){
+        this._roleGold = val
+        Dispatcher.dispatch(Cmd.ROLE_GOLD_CHANGE,val)
+    }
+
+    public static get roleExp(){
+        return this._roleExp
+    }
+    public static set roleExp(val){
+        this._roleExp = val
+        Dispatcher.dispatch(Cmd.ROLE_EXP_CHANGE,val)
+    }   
+
+    public static get roleGem(){
+        return this._roleGem
+    }
+    public static set roleGem(val){
+        this._roleGem = val
+        Dispatcher.dispatch(Cmd.ROLE_GEM_CHANGE,val)
+    }   
+
+    
+    public static get roleCurMaxLevelTd(){
+        return this._roleCurMaxLevelTd
+    }
+    public static set roleCurMaxLevelTd(val){
+        this._roleCurMaxLevelTd = val
+        Dispatcher.dispatch(Cmd.ROLE_MAX_TD_CHANGE)
+    }
+
+    ///获得当前升级需要的经验
+    public static getCurMaxExp(){
+        return 100
+    }
     // update (dt) {}
     public static init(){
-        //cc.sys.localStorage.clear()
+        cc.sys.localStorage.clear()
         let data = RoleData.getItem("roleData")
         if(data==null){ 
             this.save()
@@ -29,6 +71,8 @@ export default class RoleData {
             RoleData.roleGold = Number(json["roleGold"])
             RoleData.roleExp =  Number(json["roleExp"]) 
             RoleData.roleGem = Number(json["roleGem"])
+            RoleData.roleCurMaxLevelTd = Number(json["roleCurMaxLevelTd"])
+
         } 
         let tdd = RoleData.getItem("tdData")
         if(tdd==null){
@@ -48,6 +92,7 @@ export default class RoleData {
         rd["roleGold"] = RoleData.roleGold
         rd["roleExp"] = RoleData.roleExp
         rd["roleGem"] = RoleData.roleGem
+        rd["roleCurMaxLevelTd"] =  RoleData.roleCurMaxLevelTd 
         RoleData.saveItem("roleData",JSON.stringify(rd))
     }
     public static saveTdInfo(){

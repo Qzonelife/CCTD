@@ -2,26 +2,102 @@
 	"tds":[
 		{"id":1,"name":"测试防御塔1","level":1,"attack":10,"atkRang":300,"atkSp":1,"spriteRes":"texture/Unit/01","bulType":1},
 
-		{"id":2,"name":"测试防御塔2","level":2,"attack":410,"atkRang":300,"atkSp":0.95,"spriteRes":"texture/Unit/02","bulType":1},
+		{"id":2,"name":"测试防御塔2","level":2,"attack":10,"atkRang":300,"atkSp":0.95,"spriteRes":"texture/Unit/02","bulType":2},
 
-		{"id":3,"name":"测试防御塔3","level":3,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/03","bulType":1},
+		{"id":3,"name":"测试防御塔3","level":3,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/03","bulType":3},
 		
-		{"id":4,"name":"测试防御塔4","level":4,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/04","bulType":1},
+		{"id":4,"name":"测试防御塔4","level":4,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/04","bulType":4},
 	
-		{"id":5,"name":"测试防御塔5","level":5,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/05","bulType":1},
+		{"id":5,"name":"测试防御塔5","level":5,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/05","bulType":5},
 		
-		{"id":6,"name":"测试防御塔6","level":6,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/06","bulType":1},
+		{"id":6,"name":"测试防御塔6","level":6,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/06","bulType":6},
 		
-		{"id":7,"name":"测试防御塔7","level":7,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/07","bulType":1},
+		{"id":7,"name":"测试防御塔7","level":7,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/07","bulType":7},
 		
-		{"id":8,"name":"测试防御塔8","level":8,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/08","bulType":1},
+		{"id":8,"name":"测试防御塔8","level":8,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/08","bulType":8},
 		
-		{"id":9,"name":"测试防御塔9","level":9,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/09","bulType":1},
+		{"id":9,"name":"测试防御塔9","level":9,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/09","bulType":9},
 		
-		{"id":10,"name":"测试防御塔10","level":10,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/10","bulType":1},
+		{"id":10,"name":"测试防御塔10","level":10,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/10","bulType":10},
 		
-		{"id":11,"name":"测试防御塔11","level":11,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/11","bulType":1},
+		{"id":11,"name":"测试防御塔11","level":11,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/11","bulType":11},
 		
-		{"id":12,"name":"测试防御塔12","level":12,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/12","bulType":1}
+		{"id":12,"name":"测试防御塔12","level":12,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/12","bulType":12},
+		
+		{"id":13,"name":"测试防御塔13","level":13,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/13","bulType":13},
+		
+		{"id":14,"name":"测试防御塔14","level":14,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/14","bulType":14},
+		
+		{"id":15,"name":"测试防御塔15","level":15,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/15","bulType":15},
+		
+		{"id":16,"name":"测试防御塔16","level":16,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/16","bulType":16},
+		
+		{"id":17,"name":"测试防御塔17","level":17,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/17","bulType":17},
+		
+		{"id":18,"name":"测试防御塔18","level":18,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/18","bulType":18},
+		
+		{"id":19,"name":"测试防御塔19","level":19,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/19","bulType":19},
+		
+		{"id":20,"name":"测试防御塔20","level":20,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/20","bulType":20},
+		
+		{"id":21,"name":"测试防御塔21","level":21,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/21","bulType":21},
+		
+		{"id":22,"name":"测试防御塔22","level":22,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/22","bulType":22},
+		
+		{"id":23,"name":"测试防御塔23","level":23,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/23","bulType":23},
+		
+		{"id":24,"name":"测试防御塔24","level":24,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/24","bulType":24},
+		
+		{"id":25,"name":"测试防御塔25","level":25,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/25","bulType":25},
+		
+		{"id":26,"name":"测试防御塔26","level":26,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/26","bulType":26},
+		
+		{"id":27,"name":"测试防御塔27","level":27,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/27","bulType":27},
+		
+		{"id":28,"name":"测试防御塔28","level":28,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/28","bulType":28},
+		
+		{"id":29,"name":"测试防御塔29","level":29,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/29","bulType":29},
+		
+		{"id":30,"name":"测试防御塔30","level":30,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/30","bulType":30},
+		
+		{"id":31,"name":"测试防御塔31","level":31,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/31","bulType":31},
+		
+		{"id":32,"name":"测试防御塔32","level":32,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/32","bulType":32},
+		
+		{"id":33,"name":"测试防御塔33","level":33,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/33","bulType":33},
+		
+		{"id":34,"name":"测试防御塔34","level":34,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/34","bulType":34},
+		
+		{"id":35,"name":"测试防御塔35","level":35,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/35","bulType":35},
+		
+		{"id":36,"name":"测试防御塔36","level":36,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/36","bulType":36},
+		
+		{"id":37,"name":"测试防御塔37","level":37,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/37","bulType":37},
+		
+		{"id":38,"name":"测试防御塔38","level":38,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/38","bulType":38},
+		
+		{"id":39,"name":"测试防御塔39","level":39,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/39","bulType":39},
+		
+		{"id":40,"name":"测试防御塔40","level":40,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/40","bulType":40},
+		
+		{"id":41,"name":"测试防御塔41","level":41,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/41","bulType":41},
+		
+		{"id":42,"name":"测试防御塔42","level":42,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/42","bulType":42},
+		
+		{"id":43,"name":"测试防御塔43","level":43,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/43","bulType":43},
+		
+		{"id":44,"name":"测试防御塔44","level":44,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/44","bulType":44},
+		
+		{"id":45,"name":"测试防御塔45","level":45,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/45","bulType":45},
+		
+		{"id":46,"name":"测试防御塔46","level":46,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/46","bulType":46},
+		
+		{"id":47,"name":"测试防御塔47","level":47,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/47","bulType":47},
+		
+		{"id":48,"name":"测试防御塔48","level":48,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/48","bulType":48},
+		
+		{"id":49,"name":"测试防御塔49","level":49,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/49","bulType":49},
+		
+		{"id":50,"name":"测试防御塔50","level":50,"attack":10,"atkRang":300,"atkSp":0.9,"spriteRes":"texture/Unit/50","bulType":50}
 	]
 }

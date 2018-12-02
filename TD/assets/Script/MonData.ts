@@ -13,13 +13,17 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class MonData  {
 
-    id:number
-    name:string
-    level:number
-    blood:number
-    moveSpeed:number
-    scale:number
-    spriteRes:string 
+    id:number  //怪物id
+    name:string //怪物姓名
+    level:number //等级
+    blood:number //怪物血量
+    moveSpeed:number //移动速度
+    bamboo:number //竹子数量
+    killExp:number //击杀经验
+    escapeExp:number //逃跑扣掉的经验
+    gem:number      //掉落宝石
+    spriteRes:string  //资源地址
+
     constructor(jsonCfg){
 
         this.id = jsonCfg["id"]
@@ -27,7 +31,10 @@ export default class MonData  {
         this.level = jsonCfg["level"]
         this.blood = jsonCfg["blood"]
         this.moveSpeed = jsonCfg["moveSpeed"]
-        this.scale = jsonCfg["scale"]
+        this.bamboo = jsonCfg["bamboo"]
+        this.killExp = jsonCfg["killExp"]
+        this.escapeExp = jsonCfg["escapeExp"]
+        this.gem = jsonCfg["gem"]
         this.spriteRes = jsonCfg["spriteRes"]
     }
 }

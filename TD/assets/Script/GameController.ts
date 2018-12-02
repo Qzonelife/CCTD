@@ -64,7 +64,7 @@ export default class GameController {
    public startGameLogic(){
     cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     this.isGameLogicStart = true
-    this.monCreator.setRound(ConfigManager.getInstance().getRoundById(1),false)
+    this.monCreator.setRoundById(RoleData.roleCurMaxLevelTd,false)
     this.monCreator.startWave()
    // setInterval(this.onKeyDown.bind(this),2000)
    }
@@ -179,15 +179,37 @@ export default class GameController {
    public combineTwoTd(tda:TDUnit,tdb:TDUnit){
         if(tda.tdData.level == tdb.tdData.level){ //首先是等级相同
             if(ConfigManager.getInstance().getTdByLevel(tda.tdData.level+1)!=null){
-
+                
+                if(RoleData.roleCurMaxLevelTd == tda.tdData.level){ //如果当前升级的是最高等级的了，那么升级后就是更加高级的了
+                    RoleData.roleCurMaxLevelTd ++
+                }
                 this.removeTd(tda)
                 tdb.doLevelUpAction()
+                this.monCreator.setRoundById(RoleData.roleCurMaxLevelTd)
                 return true
             }else{ //已经是最高级了，无法合成
                 return false
             }
         }
         return false
+   }
+
+   //检查当前最高级的防御塔，如果有发生改变，则直接升级
+   public checkCurMaxTd(){
+        let maxLv = RoleData.roleCurMaxLevelTd //记录的最高等级的td
+        let isChange = false
+        for(var i=0;i<this.activeTd.length;i++){
+            if(this.activeTd[i].tdData.level > maxLv){
+                maxLv = this.activeTd[i].tdData.level 
+                isChange = true
+            }
+        }
+        if(isChange){ //如果发现最高等级的防御塔发生改变了，则进行一次回合升级，保存角色数据
+            RoleData.roleCurMaxLevelTd = maxLv
+            RoleData.save()
+            this.updateCurrentTdLs()
+            //
+        }   
    }
 
    //进行一键合成操作
@@ -215,8 +237,7 @@ export default class GameController {
 
         for(var i=0;i<removeId.length;i++){
             this.combineTwoTd(removeId[i],levelUpId[i])
-        } 
-
+        }  
    }
    public exchangeUnit(unit1:TDUnit,unit2:TDUnit){
        if(unit1!=null && unit2!=null && unit1!=unit2){
@@ -228,9 +249,7 @@ export default class GameController {
             unit2.setPosById(p1)
        }else{
            console.log("换位失败")
-       }
-       
-       this.updateCurrentTdLs()
+       } 
    }
 
 
@@ -251,24 +270,43 @@ export default class GameController {
        }
        
    }
-
    public updateCurrentTdLs(){
-        let arr:Array<[number,number]> = new Array<[number,number]>()
-        for(var i in this.activeTd){
-           arr.push([this.activeTd[i].curPosId,this.activeTd[i].tdData.id])
-        } 
-        RoleData.tdArr = arr
-        RoleData.saveTdInfo()
-   }
+    let arr:Array<[number,number]> = new Array<[number,number]>()
+    for(var i in this.activeTd){
+       arr.push([this.activeTd[i].curPosId,this.activeTd[i].tdData.id])
+    } 
+    RoleData.tdArr = arr
+    RoleData.saveTdInfo()
+    }
+
     //怪物被打死
    public monDie(monUnit:MonUnit){
-
-   }
+        this.monCreator.waveKillMon(monUnit.monData)
+   }    
    //怪物逃跑了
    public monEscape(monUnit:MonUnit){
-    
+        this.monCreator.waveEscapeMon(monUnit.monData)
    }
 
+   //一波结束，统计增加的金币，清零计数内容
+   public onWaveEnd(){
+        let expFinal = this.monCreator.getWaveExp()
+        let bambooFinal = this.monCreator.getWaveBamboo()
+        let gemFinal = this.monCreator.getWaveGem()
+        RoleData.roleExp += expFinal
+        RoleData.roleGold +=bambooFinal
+        RoleData.roleGem += gemFinal
+        if(RoleData.roleExp<=0){
+            RoleData.roleExp = 0
+        }
+        RoleData.save()
+        this.updateCurrentTdLs()
+        this.monCreator.clearWaveMonInfo()
+   }
+   //一个回合完毕
+   public onRoundFinish(){
+
+   }
 
 
 }

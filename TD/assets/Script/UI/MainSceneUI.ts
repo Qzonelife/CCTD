@@ -2,6 +2,8 @@ import UIManager from "../Manager/UIManager";
 import GameController from "../GameController";
 import WindowsManager from "../WindowsManager";
 import RoleData from "../RoleData";
+import Dispatcher from "../Util/Dispatcher";
+import Cmd from "../Define/Cmd";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -30,6 +32,11 @@ export default class MainSceneUI{
     }
     private uiNode:cc.Node
     private txtGold:cc.Label
+    private txtGem:cc.Label
+    private txtProbar:cc.Label
+    private probarExp:cc.ProgressBar
+
+    private txtRound:cc.Label
     //ui初始化
     private initUI(res:cc.Prefab){
         this.uiNode = cc.instantiate(res)
@@ -46,12 +53,41 @@ export default class MainSceneUI{
         btnPurchaseTd.node.on("click",this.onClickPurchase,this)
         let btnCombine = this.uiNode.getChildByName("btnCombine").getComponent(cc.Button)
         btnCombine.node.on("click",this.onClickCombine,this)
+        this.probarExp =  this.uiNode.getChildByName("expProgress").getComponent(cc.ProgressBar)
 
         this.txtGold = btnGold.node.getChildByName("value").getComponent(cc.Label)
+        this.txtGem = btnGem.node.getChildByName("value").getComponent(cc.Label)
+        this.txtProbar = this.probarExp.node.getChildByName("value").getComponent(cc.Label)
+        this.txtRound = this.uiNode.getChildByName("roundLevel").getComponent(cc.Label)
         this.update()
+        Dispatcher.addListener(Cmd.ROLE_GOLD_CHANGE,this.updateGold,this)
+        Dispatcher.addListener(Cmd.ROLE_GEM_CHANGE,this.updateGem,this)
+        Dispatcher.addListener(Cmd.ROLE_EXP_CHANGE,this.updateExp,this) 
+        Dispatcher.addListener(Cmd.ROLE_MAX_TD_CHANGE,this.updateMaxTd,this)
+    }
+    private updateGold(val){
+        this.txtGold.string = RoleData.roleGold.toString()
+    }
+    
+    private updateGem(val){
+        this.txtGem.string = RoleData.roleGem.toString()
+    }
+    
+    private updateExp(val){
+        this.txtProbar.string = RoleData.roleExp.toString()
+        this.probarExp.progress = RoleData.roleExp/RoleData.getCurMaxExp()
+    }
+    
+    private updateMaxTd(val){
+        
+        this.txtRound.string = "回合等级：" + RoleData.roleCurMaxLevelTd
     }
     public update(){
         this.txtGold.string = RoleData.roleGold.toString()
+        this.txtGem.string = RoleData.roleGem.toString()
+        this.txtProbar.string = RoleData.roleExp.toString()
+        this.probarExp.progress = RoleData.roleExp/RoleData.getCurMaxExp()
+        this.txtRound.string = "回合等级：" + RoleData.roleCurMaxLevelTd
     }
     private onClickGlod(){
         console.log("点击了金币")
