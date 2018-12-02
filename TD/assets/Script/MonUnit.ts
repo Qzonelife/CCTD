@@ -65,9 +65,7 @@ export default class MonUnit extends BaseUnit {
         this.bloodBar.setBloodProgress(1)
         this.isAlive = true
     }
-    public removeUnit(){
-        this.isAlive = false
-    }
+ 
 
     public setToRoadPoint(id:number){
         let rp:[number,cc.Vec2,string] = ConfigManager.getInstance().getRoadPoint(id)

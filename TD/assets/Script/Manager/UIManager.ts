@@ -40,6 +40,7 @@ export default class UIManager {
         this.bulLayer = cc.find("Canvas/sceneLayer/bulLayer")
         this.bloodLayer = cc.find("Canvas/sceneLayer/bloodLayer")
         this.flyNumLayer = cc.find("Canvas/sceneLayer/flyNumLayer")
+        
     }
 
     public adjustPosByScreen(pos:cc.Vec2):cc.Vec2{

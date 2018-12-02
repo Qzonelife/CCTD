@@ -59,7 +59,7 @@ export default class TDUnit extends DraggableUnit {
     public setTdData(tdd:TDData){ //设置数据，各种需要刷新下
         this.tdData = tdd
         this.updateSprite()
-        //this.drawRang()
+        this.drawRang()
         
     }
 

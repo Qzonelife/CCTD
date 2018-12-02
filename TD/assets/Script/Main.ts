@@ -2,8 +2,8 @@ import ConfigManager from "./Manager/ConfigManager";
 import UIManager from "./Manager/UIManager";
 import GameController from "./GameController";
 import MainSceneUI from "./UI/MainSceneUI";
-import RoleData from "./RoleData";
-
+import RoleData from "./RoleData";  
+import VersionCheck from "./Manager/VersionCheck";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -22,6 +22,17 @@ export default class Main extends cc.Component {
  
  
     start () { 
+        
+        let vc:VersionCheck = cc.find("Canvas/verChecker").getComponent(VersionCheck)
+        vc.initVerCheck(this.downProgressCb.bind(this),this.onResComplete.bind(this),true)
+    }
+    downProgressCb(val){
+        console.log(val)
+    }
+    //资源初始化完毕，开始游戏逻辑
+    onResComplete(){
+        let vc = cc.find("Canvas/verChecker")
+        vc.active = false
         RoleData.init() 
         UIManager.getInstance().init()
         ConfigManager.getInstance().loadGrid(this.onConfigComplete)

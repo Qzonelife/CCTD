@@ -38,13 +38,16 @@ export default class BloodBar extends cc.Component {
     public setBloodVisible(isVisible:boolean){
         if(this.node.active == isVisible)
             return
+        if(!isVisible){ //血量 隐藏的时候血条就是小时的时候
+            this.recordHideBlood = -1
+        }
         this.node.active = isVisible
     }
     public setBloodProgress(progress){
         this.bar.progress = progress
-        // if(progress == 1){
-        //     return
-        // }
+        if(progress == 1){
+            return
+        }
         if(this.recordHideBlood==-1){ //记录当前显示血条的时候，血量是多少
             this.setBloodVisible(true)
             this.recordHideBlood =  this.owner.curBlood
